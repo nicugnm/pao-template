@@ -25,4 +25,6 @@ public interface LocationService {
 
     void updateElementById(UUID id, Location newElement);
 
+    Map<UUID, Location> sortByName();
+
 }

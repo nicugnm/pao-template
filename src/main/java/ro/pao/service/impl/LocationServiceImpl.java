@@ -49,4 +49,28 @@ public class LocationServiceImpl implements LocationService {
         addOnlyOne(newLocation);
     }
 
+    @Override
+    public Map<UUID, Location> sortByName() {
+
+        Map<UUID, Location> locationSortedMap = new LinkedHashMap<>();
+        List<Location> locationSortedList = new ArrayList<>();
+
+        for (Map.Entry<UUID, Location> entry : getAllFromMap().entrySet()) {
+            locationSortedList.add(entry.getValue());
+        }
+
+        Collections.sort(locationSortedList);
+
+        for (Location location : locationSortedList) {
+            for (Map.Entry<UUID, Location> entry : getAllFromMap().entrySet()) {
+                if (entry.getValue().equals(location)) {
+                    locationSortedMap.put(entry.getKey(), location);
+                }
+            }
+        }
+
+        return locationSortedMap;
+
+    }
+
 }

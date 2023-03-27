@@ -8,12 +8,12 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum LocationType {
-    CONCERT_HALL("concert hall"),
+    CONCERTHALL("concert hall"),
     THEATER("theater"),
-    OPERA_HOUSE("opera house"),
+    OPERAHOUSE("opera house"),
     ARENA("arena"),
     POOL("pool"),
-    CYCLING_ROUTE("cycling route"),
+    CYCLINGROUTE("cycling route"),
     NONE("none");
 
     private final String typeString;

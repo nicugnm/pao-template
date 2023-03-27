@@ -12,7 +12,9 @@ public class Main {
         while (true) {
             Menu menu = Menu.getInstance();
 
-            menu.intro();
+            menu.crud();
+
+            menu.sortings();
 
             if ("exit".equals(scanner.next())) {
                 break;

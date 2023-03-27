@@ -3,6 +3,7 @@ package ro.pao.model;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +19,7 @@ public class Client {
 
     private String birthLocation;
 
-    private LocalDateTime birthInformation;
+    private LocalDate birthDate;
 
     private List<MailInformation> mailList;
 
