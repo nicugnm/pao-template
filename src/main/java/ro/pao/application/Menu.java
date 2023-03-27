@@ -1,10 +1,8 @@
 package ro.pao.application;
 
-import ro.pao.model.ExampleClass;
-import ro.pao.service.ExampleService;
-import ro.pao.service.impl.ExampleServiceImpl;
+import ro.pao.model.CulturalEvent;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,25 +29,25 @@ public class Menu {
 
         System.out.println(intro);
 
-        ExampleClass exampleClass = ExampleClass.builder()
+        CulturalEvent culturalEvent = CulturalEvent.builder()
                 .id(UUID.randomUUID())
-                .creationDate(LocalDate.now()) // data de azi
-                .updateDate(LocalDate.now())
-                .deleteDate(LocalDate.now())
+                .creationDateTime(LocalDateTime.now()) // data de azi
+                .updateDateTime(LocalDateTime.now())
+                .deleteDateTime(LocalDateTime.now())
                 .build();
 
-        exampleService.addOnlyOne(exampleClass);
+        exampleService.addOnlyOne(culturalEvent);
 
-        List<ExampleClass> exampleServiceList = List.of(
-                ExampleClass.builder()
+        List<CulturalEvent> exampleServiceList = List.of(
+                CulturalEvent.builder()
                         .id(UUID.randomUUID())
-                        .creationDate(LocalDate.of(2023, 03, 22))
-                        .updateDate(LocalDate.now())
+                        .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 0))
+                        .updateDateTime(LocalDateTime.now())
                         .build(),
-                ExampleClass.builder()
+                CulturalEvent.builder()
                         .id(UUID.randomUUID())
-                        .creationDate(LocalDate.of(2023, 03, 22))
-                        .updateDate(LocalDate.now())
+                        .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 30))
+                        .updateDateTime(LocalDateTime.now())
                         .build()
         );
 
@@ -61,13 +59,13 @@ public class Menu {
 
 
         System.out.println("Dupa modificare: ");
-        exampleClass.setUpdateDate(LocalDate.of(2, 2, 2));
-        exampleService.modificaElementById(exampleClass.getId(), exampleClass);
+        culturalEvent.setUpdateDateTime(LocalDateTime.of(2, 2, 2, 14, 15));
+        exampleService.modificaElementById(culturalEvent.getId(), culturalEvent);
         exampleService.getAllFromList()
                 .forEach(elementFromList -> System.out.println(elementFromList));
 
         System.out.println("Dupa stergere: ");
-        exampleService.removeElementById(exampleClass.getId());
+        exampleService.removeElementById(culturalEvent.getId());
         exampleService.getAllFromList()
                 .forEach(elementFromList -> System.out.println(elementFromList));
     }

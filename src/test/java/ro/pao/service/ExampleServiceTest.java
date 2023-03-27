@@ -2,12 +2,9 @@ package ro.pao.service;
 
 import org.junit.jupiter.api.Test;
 import ro.pao.application.Menu;
-import ro.pao.model.ExampleClass;
-import ro.pao.service.impl.ExampleServiceImpl;
+import ro.pao.model.CulturalEvent;
 
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Metodele de test ale serviciului 'ExampleService'
@@ -36,11 +33,11 @@ class ExampleServiceTest {
         // given
         // pasul in care efectuam operatiile
 
-        ExampleClass exampleClass = ExampleClass.builder()
+        CulturalEvent culturalEvent = CulturalEvent.builder()
                 .id(UUID.randomUUID())
                 .build();
 
-        eggService.addOnlyOne(exampleClass);
+        eggService.addOnlyOne(culturalEvent);
 
         // then
         // pasul in care testam comportamentul dupa apelarea functiilor
