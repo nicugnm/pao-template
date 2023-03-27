@@ -4,15 +4,12 @@ import ro.pao.model.CulturalEvent;
 import ro.pao.model.Location;
 import ro.pao.service.LocationService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LocationServiceImpl implements LocationService {
 
-    private static List<Location> locationList = new ArrayList<>();
+    private static Map<UUID, Location> locationMap = new HashMap<>();
 
     @Override
     public Optional<Location> getById(UUID id) {
@@ -25,25 +22,25 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<Location> getAllFromList() {
-        return locationList;
+    public Map<UUID, Location> getAllFromMap() {
+        return locationMap;
     }
 
     @Override
-    public void addAllFromGivenList(List<Location> locationList) {
-        LocationServiceImpl.locationList.addAll(locationList);
+    public void addAllFromGivenMap(Map<UUID, Location> locationMap) {
+        LocationServiceImpl.locationMap.putAll(locationMap);
     }
 
     @Override
     public void addOnlyOne(Location location) {
-        locationList.add(location);
+        locationMap.put(location.getId(), location);
     }
 
     @Override
     public void removeElementById(UUID id) {
-        locationList = locationList.stream()
-                .filter(element -> !id.equals(element.getId()))
-                .collect(Collectors.toList());
+        locationMap = locationMap.entrySet().stream()
+                .filter(element -> !id.equals(element.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override

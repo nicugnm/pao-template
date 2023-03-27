@@ -4,6 +4,7 @@ import ro.pao.model.CardInformation;
 import ro.pao.model.MailInformation;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,11 +14,11 @@ public interface CardService {
 
     Optional<CardInformation> getBySomeFieldOfClass(Object someFieldFromExampleClass);
 
-    List<CardInformation> getAllFromList();
+    Map<String, CardInformation> getAllFromMap();
 
-    void addAllFromGivenList(List<CardInformation> cardList);
+    void addAllFromGivenMap(Map<String, CardInformation> cardInformationMap);
 
-    void addOnlyOne(CardInformation card);
+    void addOnlyOne(CardInformation cardInformation);
 
     void removeElementById(UUID id);
 

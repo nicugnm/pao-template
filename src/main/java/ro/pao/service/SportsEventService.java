@@ -4,6 +4,7 @@ import ro.pao.model.CulturalEvent;
 import ro.pao.model.SportsEvent;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,9 +14,9 @@ public interface SportsEventService {
 
     Optional<SportsEvent> getBySomeFieldOfClass(Object someFieldFromExampleClass);
 
-    List<SportsEvent> getAllFromList();
+    Map<UUID, SportsEvent> getAllFromMap();
 
-    void addAllFromGivenList(List<SportsEvent> sportsEventList);
+    void addAllFromGivenMap(Map<UUID, SportsEvent> sportsEventMap);
 
     void addOnlyOne(SportsEvent sportsEvent);
 

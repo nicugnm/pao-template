@@ -5,21 +5,18 @@ import ro.pao.model.CulturalEvent;
 import ro.pao.model.MailInformation;
 import ro.pao.service.CardService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CardServiceImpl implements CardService {
 
-    private static List<CardInformation> cardInformationList = new ArrayList<>();
+    private static Map<String, CardInformation> cardInformationMap = new HashMap<>();
 
     @Override
-    public Optional<CardInformation> getById(CardInformation id) {
-        return cardInformationList.stream()
-                .filter(obj -> id.equals(obj.getCardNumber()))
-                .findAny();
+    public Optional<CardInformation> getById(CardInformation cardInformation) {
+        return cardInformationMap.entrySet().stream()
+                .filter(element -> cardInformation.getCardNumber().equals(element.getValue().getCardNumber()))
+                .findAny().map(Map.Entry::getValue);
     }
 
     @Override
@@ -28,25 +25,25 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<CardInformation> getAllFromList() {
-        return cardInformationList;
+    public Map<String, CardInformation> getAllFromMap() {
+        return cardInformationMap;
     }
 
     @Override
-    public void addAllFromGivenList(List<CardInformation> cardInformationList) {
-        CardServiceImpl.cardInformationList.addAll(cardInformationList);
+    public void addAllFromGivenMap(Map<String, CardInformation> cardInformationMap) {
+        CardServiceImpl.cardInformationMap.putAll(cardInformationMap);
     }
 
     @Override
     public void addOnlyOne(CardInformation cardInformation) {
-        cardInformationList.add(cardInformation);
+        cardInformationMap.put(cardInformation.getCardNumber(), cardInformation);
     }
 
     @Override
     public void removeElementById(UUID id) {
-        cardInformationList = cardInformationList.stream()
-                .filter(element -> !id.equals(element.getCardNumber()))
-                .collect(Collectors.toList());
+        cardInformationMap = cardInformationMap.entrySet().stream()
+                .filter(element -> !id.equals(element.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override

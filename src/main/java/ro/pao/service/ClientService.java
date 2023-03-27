@@ -4,6 +4,7 @@ import ro.pao.model.Client;
 import ro.pao.model.MailInformation;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,9 +14,9 @@ public interface ClientService {
 
     Optional<Client> getBySomeFieldOfClass(Object someFieldFromExampleClass);
 
-    List<Client> getAllFromList();
+    Map<UUID, Client> getAllFromMap();
 
-    void addAllFromGivenList(List<Client> clientList);
+    void addAllFromGivenMap(Map<UUID, Client> clientMap);
 
     void addOnlyOne(Client client);
 

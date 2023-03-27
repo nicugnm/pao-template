@@ -4,6 +4,7 @@ import ro.pao.model.Client;
 import ro.pao.model.Ticket;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,9 +14,9 @@ public interface TicketService {
 
     Optional<Ticket> getBySomeFieldOfClass(Object someFieldFromExampleClass);
 
-    List<Ticket> getAllFromList();
+    Map<UUID, Ticket> getAllFromMap();
 
-    void addAllFromGivenList(List<Ticket> ticketList);
+    void addAllFromGivenMap(Map<UUID, Ticket> ticketMap);
 
     void addOnlyOne(Ticket ticket);
 

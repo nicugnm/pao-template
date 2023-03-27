@@ -5,6 +5,7 @@ import ro.pao.model.CulturalEvent;
 import ro.pao.model.Location;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,9 +15,9 @@ public interface CulturalEventService {
 
     Optional<CulturalEvent> getBySomeFieldOfClass(Object someFieldFromExampleClass);
 
-    List<CulturalEvent> getAllFromList();
+    Map<UUID, CulturalEvent> getAllFromMap();
 
-    void addAllFromGivenList(List<CulturalEvent> culturalEventList);
+    void addAllFromGivenMap(Map<UUID, CulturalEvent> culturalEventMap);
 
     void addOnlyOne(CulturalEvent culturalEvent);
 

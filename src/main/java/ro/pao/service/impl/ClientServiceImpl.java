@@ -4,15 +4,13 @@ import ro.pao.model.Client;
 import ro.pao.model.CulturalEvent;
 import ro.pao.service.ClientService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ClientServiceImpl implements ClientService {
 
-    private static List<Client> clientList = new ArrayList<>();
+    private static Map<UUID, Client> clientMap = new HashMap<>();
 
     @Override
     public Optional<Client> getById(UUID id) {
@@ -25,25 +23,25 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> getAllFromList() {
-        return clientList;
+    public Map<UUID, Client> getAllFromMap() {
+        return clientMap;
     }
 
     @Override
-    public void addAllFromGivenList(List<Client> clientList) {
-        ClientServiceImpl.clientList.addAll(clientList);
+    public void addAllFromGivenMap(Map<UUID, Client> clientMap) {
+        ClientServiceImpl.clientMap.putAll(clientMap);
     }
 
     @Override
     public void addOnlyOne(Client client) {
-        clientList.add(client);
+        clientMap.put(client.getId(), client);
     }
 
     @Override
     public void removeElementById(UUID id) {
-        clientList = clientList.stream()
-                .filter(element -> !id.equals(element.getId()))
-                .collect(Collectors.toList());
+        clientMap = clientMap.entrySet().stream()
+                .filter(element -> !id.equals(element.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override

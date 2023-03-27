@@ -2,6 +2,7 @@ package ro.pao.model;
 
 import lombok.*;
 
+import java.util.UUID;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
@@ -11,6 +12,8 @@ import java.util.function.Predicate;
 @EqualsAndHashCode
 @ToString
 public class MailInformation {
+
+    private UUID id;
 
     private String firstName;
 
@@ -24,7 +27,7 @@ public class MailInformation {
             System.out.println("The e-mail address is not valid.");
         }
 
-        var mailSplit = mail.split("@")[0]; // [0] = "prenume.nume" , [1] = "yahoo.com" / "gmail.com"
+        var mailSplit = mail.split("@")[0];
         var fullNameSplit = mailSplit.split(".");
 
         if (!fullNameCondition.test(fullNameSplit[0], fullNameSplit[1])) {

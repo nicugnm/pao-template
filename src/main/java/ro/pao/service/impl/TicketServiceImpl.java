@@ -4,15 +4,12 @@ import ro.pao.model.Location;
 import ro.pao.model.Ticket;
 import ro.pao.service.TicketService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TicketServiceImpl implements TicketService {
 
-    private static List<Ticket> ticketList = new ArrayList<>();
+    private static Map<UUID, Ticket> ticketMap = new HashMap<>();
 
     @Override
     public Optional<Ticket> getById(UUID id) {
@@ -25,25 +22,25 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> getAllFromList() {
-        return ticketList;
+    public Map<UUID, Ticket> getAllFromMap() {
+        return ticketMap;
     }
 
     @Override
-    public void addAllFromGivenList(List<Ticket> ticketList) {
-        TicketServiceImpl.ticketList.addAll(ticketList);
+    public void addAllFromGivenMap(Map<UUID, Ticket> ticketMap) {
+        TicketServiceImpl.ticketMap.putAll(ticketMap);
     }
 
     @Override
     public void addOnlyOne(Ticket ticket) {
-        ticketList.add(ticket);
+        ticketMap.put(ticket.getId(), ticket);
     }
 
     @Override
     public void removeElementById(UUID id) {
-        ticketList = ticketList.stream()
-                .filter(element -> !id.equals(element.getId()))
-                .collect(Collectors.toList());
+        ticketMap = ticketMap.entrySet().stream()
+                .filter(element -> !id.equals(element.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override

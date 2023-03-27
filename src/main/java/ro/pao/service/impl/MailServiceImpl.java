@@ -1,7 +1,54 @@
 package ro.pao.service.impl;
 
+import ro.pao.model.CardInformation;
+import ro.pao.model.MailInformation;
 import ro.pao.service.MailService;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class MailServiceImpl implements MailService {
+
+    private static Map<UUID, MailInformation> mailInformationMap = new HashMap<>();
+
+    @Override
+    public Optional<MailInformation> getById(MailInformation mailInformation) {
+        return mailInformationMap.entrySet().stream()
+                .filter(obj -> mailInformation.getId().equals(obj.getKey()))
+                .findAny().map(Map.Entry::getValue);
+    }
+
+    @Override
+    public Optional<MailInformation> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Map<UUID, MailInformation> getAllFromMap() {
+        return mailInformationMap;
+    }
+
+    @Override
+    public void addAllFromGivenMap(Map<UUID, MailInformation> mailInformationMap) {
+        MailServiceImpl.mailInformationMap.putAll(mailInformationMap);
+    }
+
+    @Override
+    public void addOnlyOne(MailInformation mailInformation) {
+        mailInformationMap.put(mailInformation.getId(), mailInformation);
+    }
+
+    @Override
+    public void removeElementById(UUID id) {
+        mailInformationMap = mailInformationMap.entrySet().stream()
+                .filter(element -> !id.equals(element.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    @Override
+    public void updateElementById(UUID id, MailInformation newMailInformation) {
+        removeElementById(id);
+        addOnlyOne(newMailInformation);
+    }
 
 }

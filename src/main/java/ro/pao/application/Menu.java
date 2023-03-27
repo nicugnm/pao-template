@@ -6,7 +6,12 @@ import ro.pao.service.impl.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Menu {
 
@@ -39,13 +44,13 @@ public class Menu {
 
         CulturalEvent culturalEvent = CulturalEvent.builder()
                 .id(UUID.randomUUID())
-                .creationDateTime(LocalDateTime.now()) // data de azi
+                .creationDateTime(LocalDateTime.now())
                 .deleteDateTime(LocalDateTime.now())
                 .build();
 
         culturalEventService.addOnlyOne(culturalEvent);
 
-        List<CulturalEvent> culturalEventServiceList = List.of(
+        Map<UUID, CulturalEvent> culturalEventServiceMap = Stream.of(
                 CulturalEvent.builder()
                         .id(UUID.randomUUID())
                         .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 0))
@@ -54,25 +59,25 @@ public class Menu {
                         .id(UUID.randomUUID())
                         .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 30))
                         .build()
-        );
+        ).collect(Collectors.toMap(CulturalEvent::getId, Function.identity()));
 
-        culturalEventService.addAllFromGivenList(culturalEventServiceList);
+        culturalEventService.addAllFromGivenMap(culturalEventServiceMap);
 
         System.out.println("Before removal: ");
-        culturalEventService.getAllFromList()
-                .forEach(elementFromList -> System.out.println(elementFromList));
+        culturalEventService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
 
 
         System.out.println("After setting start and end date-time: ");
         culturalEvent.setStartDateTime(LocalDateTime.of(2023, 4, 2, 18,0));
         culturalEvent.setEndDateTime(LocalDateTime.of(2023, 4, 2, 20, 30));
         culturalEventService.updateElementById(culturalEvent.getId(), culturalEvent);
-        culturalEventService.getAllFromList()
-                .forEach(elementFromList -> System.out.println(elementFromList));
+        culturalEventService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
 
         System.out.println("After removal: ");
         culturalEventService.removeElementById(culturalEvent.getId());
-        culturalEventService.getAllFromList()
-                .forEach(elementFromList -> System.out.println(elementFromList));
+        culturalEventService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
     }
 }

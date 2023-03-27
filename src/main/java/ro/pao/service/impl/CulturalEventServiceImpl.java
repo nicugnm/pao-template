@@ -3,15 +3,12 @@ package ro.pao.service.impl;
 import ro.pao.model.CulturalEvent;
 import ro.pao.service.CulturalEventService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CulturalEventServiceImpl implements CulturalEventService {
 
-    private static List<CulturalEvent> culturalEventList = new ArrayList<>();
+    private static Map<UUID, CulturalEvent> culturalEventMap = new HashMap<>();
 
     @Override
     public Optional<CulturalEvent> getById(UUID id) {
@@ -24,25 +21,25 @@ public class CulturalEventServiceImpl implements CulturalEventService {
     }
 
     @Override
-    public List<CulturalEvent> getAllFromList() {
-        return culturalEventList;
+    public Map<UUID, CulturalEvent> getAllFromMap() {
+        return culturalEventMap;
     }
 
     @Override
-    public void addAllFromGivenList(List<CulturalEvent> culturalEventList) {
-        CulturalEventServiceImpl.culturalEventList.addAll(culturalEventList);
+    public void addAllFromGivenMap(Map<UUID, CulturalEvent> culturalEventMap) {
+        CulturalEventServiceImpl.culturalEventMap.putAll(culturalEventMap);
     }
 
     @Override
     public void addOnlyOne(CulturalEvent culturalEvent) {
-        culturalEventList.add(culturalEvent);
+        culturalEventMap.put(culturalEvent.getId(), culturalEvent);
     }
 
     @Override
     public void removeElementById(UUID id) {
-        culturalEventList = culturalEventList.stream()
-                .filter(element -> !id.equals(element.getId()))
-                .collect(Collectors.toList());
+        culturalEventMap = culturalEventMap.entrySet().stream()
+                .filter(element -> !id.equals(element.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override
