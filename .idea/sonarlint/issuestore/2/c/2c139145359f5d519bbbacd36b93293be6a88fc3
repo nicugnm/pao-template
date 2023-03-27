@@ -1,10 +1,0 @@
-
-i
-java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãàµ
-N	java:S106"9Replace this use of System.out or System.err by a logger.(•ÍÂ
-N	java:S1068"9Replace this use of System.out or System.err by a logger.(ôã¥ä
-N	java:S106:"9Replace this use of System.out or System.err by a logger.(ğ¸í„
-M	java:S106="9Replace this use of System.out or System.err by a logger.(àÁì 
-N	java:S106A"9Replace this use of System.out or System.err by a logger.(ğ¸í„
-N	java:S106C"9Replace this use of System.out or System.err by a logger.(˜Úÿø
-N	java:S106F"9Replace this use of System.out or System.err by a logger.(ğ¸í„

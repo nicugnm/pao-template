@@ -1,11 +1,16 @@
 package ro.pao.model;
 
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@SuperBuilder
+@Getter
 public class Client {
-    private UUID clientId;
+    private UUID id;
 
     private String firstName;
 

@@ -10,8 +10,11 @@ import java.util.UUID;
 @SuperBuilder
 @Getter
 public class CulturalEvent extends Event {
+
     private String title;
+
     private String description;
+
     private CulturalEventType culturalEventType;
 
 }

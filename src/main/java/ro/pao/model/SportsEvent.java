@@ -10,8 +10,11 @@ import java.util.UUID;
 @SuperBuilder
 @Getter
 public class SportsEvent extends Event {
+
     private String competition;
+
     private String stage;
+
     private SportsEventType sportsEventType;
 
 }

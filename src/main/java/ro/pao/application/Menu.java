@@ -1,22 +1,30 @@
 package ro.pao.application;
 
 import ro.pao.model.CulturalEvent;
+import ro.pao.service.*;
+import ro.pao.service.impl.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * In Meniu se fac operatiile care pot lua informatii din toate dintre servicile definite.
- * De exemplu, avem definit mai jos `private final ExampleService exampleService = new ExampleServiceImpl();`
- *
- * In cazul in care aveam definit mai multe servicii, la fel, faceam o initializare a serviciile si astfel apelam metode din serviciu.
- */
 public class Menu {
 
     private static Menu INSTANCE;
 
-    private final ExampleService exampleService = new ExampleServiceImpl();
+    private final CulturalEventService culturalEventService = new CulturalEventServiceImpl();
+
+    private final SportsEventService sportsEventService = new SportsEventServiceImpl();
+
+    private final LocationService locationService = new LocationServiceImpl();
+
+    private final ClientService clientService = new ClientServiceImpl();
+
+    private final TicketService ticketService = new TicketServiceImpl();
+
+    private final MailService mailService = new MailServiceImpl();
+
+    private final CardService cardService = new CardServiceImpl();
 
     public static Menu getInstance() {
         return (INSTANCE == null ? new Menu() : INSTANCE);
@@ -32,41 +40,39 @@ public class Menu {
         CulturalEvent culturalEvent = CulturalEvent.builder()
                 .id(UUID.randomUUID())
                 .creationDateTime(LocalDateTime.now()) // data de azi
-                .updateDateTime(LocalDateTime.now())
                 .deleteDateTime(LocalDateTime.now())
                 .build();
 
-        exampleService.addOnlyOne(culturalEvent);
+        culturalEventService.addOnlyOne(culturalEvent);
 
-        List<CulturalEvent> exampleServiceList = List.of(
+        List<CulturalEvent> culturalEventServiceList = List.of(
                 CulturalEvent.builder()
                         .id(UUID.randomUUID())
                         .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 0))
-                        .updateDateTime(LocalDateTime.now())
                         .build(),
                 CulturalEvent.builder()
                         .id(UUID.randomUUID())
                         .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 30))
-                        .updateDateTime(LocalDateTime.now())
                         .build()
         );
 
-        exampleService.addAllFromGivenList(exampleServiceList);
+        culturalEventService.addAllFromGivenList(culturalEventServiceList);
 
-        System.out.println("Inainte de stergere: ");
-        exampleService.getAllFromList()
+        System.out.println("Before removal: ");
+        culturalEventService.getAllFromList()
                 .forEach(elementFromList -> System.out.println(elementFromList));
 
 
-        System.out.println("Dupa modificare: ");
-        culturalEvent.setUpdateDateTime(LocalDateTime.of(2, 2, 2, 14, 15));
-        exampleService.modificaElementById(culturalEvent.getId(), culturalEvent);
-        exampleService.getAllFromList()
+        System.out.println("After setting start and end date-time: ");
+        culturalEvent.setStartDateTime(LocalDateTime.of(2023, 4, 2, 18,0));
+        culturalEvent.setEndDateTime(LocalDateTime.of(2023, 4, 2, 20, 30));
+        culturalEventService.updateElementById(culturalEvent.getId(), culturalEvent);
+        culturalEventService.getAllFromList()
                 .forEach(elementFromList -> System.out.println(elementFromList));
 
-        System.out.println("Dupa stergere: ");
-        exampleService.removeElementById(culturalEvent.getId());
-        exampleService.getAllFromList()
+        System.out.println("After removal: ");
+        culturalEventService.removeElementById(culturalEvent.getId());
+        culturalEventService.getAllFromList()
                 .forEach(elementFromList -> System.out.println(elementFromList));
     }
 }
