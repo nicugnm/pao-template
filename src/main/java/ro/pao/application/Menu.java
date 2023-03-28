@@ -5,6 +5,7 @@ import ro.pao.service.impl.ExampleServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 /**
@@ -21,51 +22,38 @@ public class Menu {
         return (INSTANCE == null ? new Menu() : INSTANCE);
     }
 
+    private void studentMenu() {
+
+    }
+
+    private void professorMenu() {
+
+    }
+
+
     public void intro() {
+        Scanner scanner = new Scanner(System.in);
         String intro = """
-                Intro example
+                
+                ----------MINI CLASS REGISTER
+                
                 """;
 
         System.out.println(intro);
-//
-//        ExampleClass exampleClass = ExampleClass.builder()
-//                .id(UUID.randomUUID())
-//                .creationDate(LocalDate.now()) // data de azi
-//                .updateDate(LocalDate.now())
-//                .deleteDate(LocalDate.now())
-//                .build();
-//
-//        exampleService.addOnlyOne(exampleClass);
-//
-//        List<ExampleClass> exampleServiceList = List.of(
-//                ExampleClass.builder()
-//                        .id(UUID.randomUUID())
-//                        .creationDate(LocalDate.of(2023, 03, 22))
-//                        .updateDate(LocalDate.now())
-//                        .build(),
-//                ExampleClass.builder()
-//                        .id(UUID.randomUUID())
-//                        .creationDate(LocalDate.of(2023, 03, 22))
-//                        .updateDate(LocalDate.now())
-//                        .build()
-//        );
-//
-//        exampleService.addAllFromGivenList(exampleServiceList);
-//
-//        System.out.println("Inainte de stergere: ");
-//        exampleService.getAllFromList()
-//                .forEach(elementFromList -> System.out.println(elementFromList));
-//
-//
-//        System.out.println("Dupa modificare: ");
-//        exampleClass.setUpdateDate(LocalDate.of(2, 2, 2));
-//        exampleService.modificaElementById(exampleClass.getId(), exampleClass);
-//        exampleService.getAllFromList()
-//                .forEach(elementFromList -> System.out.println(elementFromList));
-//
-//        System.out.println("Dupa stergere: ");
-//        exampleService.removeElementById(exampleClass.getId());
-//        exampleService.getAllFromList()
-//                .forEach(elementFromList -> System.out.println(elementFromList));
+
+        while (true) {
+            String request = "Choose type of user(1-Student, 2-Professor): ";
+            System.out.println(request);
+            if ("1".equals(scanner.next())) {
+                studentMenu();
+                break;
+            } else if ("2".equals(scanner.next())) {
+                professorMenu();
+                break;
+            } else {
+                System.out.println("Invalid input. Try again.");
+            }
+        }
+
     }
 }
