@@ -2,7 +2,6 @@ package ro.pao.service.impl;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ro.pao.model.ExampleClass;
 import ro.pao.service.ExampleService;
 
 import java.util.ArrayList;

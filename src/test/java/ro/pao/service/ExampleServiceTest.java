@@ -2,7 +2,6 @@ package ro.pao.service;
 
 import org.junit.jupiter.api.Test;
 import ro.pao.application.Menu;
-import ro.pao.model.ExampleClass;
 import ro.pao.service.impl.ExampleServiceImpl;
 
 import java.util.UUID;
