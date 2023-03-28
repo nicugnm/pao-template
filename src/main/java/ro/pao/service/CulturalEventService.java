@@ -1,10 +1,7 @@
 package ro.pao.service;
 
-import ro.pao.model.CardInformation;
 import ro.pao.model.CulturalEvent;
-import ro.pao.model.Location;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;

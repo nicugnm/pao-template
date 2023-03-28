@@ -2,10 +2,9 @@ package ro.pao.model.abstracts;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import ro.pao.model.Location;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -27,5 +26,6 @@ public abstract class Event {
 
     private LocalDateTime deleteDateTime;
 
-    private Location location;
+    public abstract List<Integer> nrTicketsCategories();
+
 }

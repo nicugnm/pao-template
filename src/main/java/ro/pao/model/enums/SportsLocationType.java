@@ -7,24 +7,24 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum CulturalEventType {
+public enum SportsLocationType {
 
-    CONCERT("concert"),
+    ARENA("arena"),
 
-    THEATER("theater"),
+    POOL("pool"),
 
-    BALLET("ballet"),
-
-    OPERA("opera"),
+    CYCLING_ROUTE("cycling route"),
 
     NONE("none");
 
     private final String typeString;
 
-    public static CulturalEventType getEnumByFieldString(String field) {
-        return Arrays.stream(CulturalEventType.values())
+    public static SportsLocationType getEnumByFieldString(String field) {
+        return Arrays.stream(SportsLocationType.values())
                 .filter(enumElement -> enumElement.typeString.equals(field))
                 .findAny()
                 .orElse(NONE);
+
     }
+
 }

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @SuperBuilder
 @Getter
-public class Client {
+public class Client implements Comparable<Client> {
     private UUID id;
 
     private String firstName;
@@ -27,4 +27,22 @@ public class Client {
 
     private List<Ticket> ticketList;
 
+    @Override
+    public int compareTo(Client o) {
+        return Integer.compare(o.getTicketList().size(), getTicketList().size());
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthLocation='" + birthLocation + '\'' +
+                ", birthDate=" + birthDate +
+                ", mailList=" + mailList +
+                ", cardList=" + cardList +
+                ", ticketList=" + ticketList +
+                '}';
+    }
 }

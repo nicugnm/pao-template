@@ -1,6 +1,5 @@
 package ro.pao.service.impl;
 
-import ro.pao.model.Location;
 import ro.pao.model.Ticket;
 import ro.pao.service.TicketService;
 

@@ -14,7 +14,11 @@ public class Main {
 
             menu.crud();
 
-            menu.sortings();
+            menu.sortingLocations();
+
+            menu.sortingClients();
+
+            menu.upAndDownCasting();
 
             if ("exit".equals(scanner.next())) {
                 break;
