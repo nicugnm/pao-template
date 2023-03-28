@@ -50,28 +50,4 @@ public class CulturalLocationServiceImpl implements CulturalLocationService {
         addOnlyOne(newCulturalLocation);
     }
 
-    @Override
-    public Map<UUID, CulturalLocation> sortByName() {
-
-        Map<UUID, CulturalLocation> culturalLocationSortedMap = new LinkedHashMap<>();
-        List<CulturalLocation> culturalLocationSortedList = new ArrayList<>();
-
-        for (Map.Entry<UUID, CulturalLocation> entry : getAllFromMap().entrySet()) {
-            culturalLocationSortedList.add(entry.getValue());
-        }
-
-        Collections.sort(culturalLocationSortedList);
-
-        for (CulturalLocation culturalLocation : culturalLocationSortedList) {
-            for (Map.Entry<UUID, CulturalLocation> entry : getAllFromMap().entrySet()) {
-                if (entry.getValue().equals(culturalLocation)) {
-                    culturalLocationSortedMap.put(entry.getKey(), culturalLocation);
-                }
-            }
-        }
-
-        return culturalLocationSortedMap;
-
-    }
-
 }

@@ -22,6 +22,4 @@ public interface CulturalLocationService {
 
     void updateElementById(UUID id, CulturalLocation newElement);
 
-    Map<UUID, CulturalLocation> sortByName();
-
 }

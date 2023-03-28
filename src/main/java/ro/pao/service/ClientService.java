@@ -24,6 +24,4 @@ public interface ClientService {
 
     void updateElementById(UUID id, Client newClient);
 
-    Map<UUID, Client> sortByTickets();
-
 }

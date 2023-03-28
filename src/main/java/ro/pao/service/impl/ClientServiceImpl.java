@@ -51,27 +51,4 @@ public class ClientServiceImpl implements ClientService {
         addOnlyOne(newClient);
     }
 
-    public Map<UUID, Client> sortByTickets() {
-
-        Map<UUID, Client> clientSortedMap = new LinkedHashMap<>();
-        List<Client> clientSortedList = new ArrayList<>();
-
-        for (Map.Entry<UUID, Client> entry : getAllFromMap().entrySet()) {
-            clientSortedList.add(entry.getValue());
-        }
-
-        Collections.sort(clientSortedList);
-
-        for (Client client : clientSortedList) {
-            for (Map.Entry<UUID, Client> entry : getAllFromMap().entrySet()) {
-                if (entry.getValue().equals(client)) {
-                    clientSortedMap.put(entry.getKey(), client);
-                }
-            }
-        }
-
-        return clientSortedMap;
-
-    }
-
 }

@@ -86,6 +86,28 @@ public class Menu {
 
     }
 
+    public Map<UUID, CulturalLocation> sortCulturalEventsByLocationName(Map<UUID, CulturalLocation> culturalLocationMap) {
+
+        Map<UUID, CulturalLocation> culturalLocationSortedMap = new LinkedHashMap<>();
+        List<CulturalLocation> culturalLocationSortedList = new ArrayList<>();
+
+        for (Map.Entry<UUID, CulturalLocation> entry : culturalLocationMap.entrySet()) {
+            culturalLocationSortedList.add(entry.getValue());
+        }
+
+        Collections.sort(culturalLocationSortedList);
+
+        for (CulturalLocation culturalLocation : culturalLocationSortedList) {
+            for (Map.Entry<UUID, CulturalLocation> entry : culturalLocationMap.entrySet()) {
+                if (entry.getValue().equals(culturalLocation)) {
+                    culturalLocationSortedMap.put(entry.getKey(), culturalLocation);
+                }
+            }
+        }
+
+        return culturalLocationSortedMap;
+
+    }
 
     public void sortingLocations() {
 
@@ -95,7 +117,9 @@ public class Menu {
 
         System.out.println(sorting + "\nFirst Approach (with the service implementation using sort method()):");
 
-        culturalLocationService.addAllFromGivenMap(Stream.of(
+        Map<UUID, CulturalLocation> culturalLocationMap = new HashMap<>();
+
+        culturalLocationMap = (Stream.of(
                 CulturalLocation.builder()
                         .id(UUID.randomUUID())
                         .name("Location ONE")
@@ -115,9 +139,7 @@ public class Menu {
                         .build()
         ).collect(Collectors.toMap(CulturalLocation::getId, Function.identity())));
 
-        culturalLocationService.sortByName()
-                .forEach((keys, values) -> System.out.println(values));
-
+        sortCulturalEventsByLocationName(culturalLocationMap).forEach((keys, values) -> System.out.println(values));
 
         System.out.println("\nSecond Approach (using TreeSet), so that elements are inserted directly in sorted order:");
 
@@ -146,6 +168,29 @@ public class Menu {
 
     }
 
+    public Map<UUID, Client> sortClientsByTickets(Map<UUID, Client> clientMap) {
+
+        Map<UUID, Client> clientSortedMap = new LinkedHashMap<>();
+        List<Client> clientSortedList = new ArrayList<>();
+
+        for (Map.Entry<UUID, Client> entry : clientMap.entrySet()) {
+            clientSortedList.add(entry.getValue());
+        }
+
+        Collections.sort(clientSortedList);
+
+        for (Client client : clientSortedList) {
+            for (Map.Entry<UUID, Client> entry : clientMap.entrySet()) {
+                if (entry.getValue().equals(client)) {
+                    clientSortedMap.put(entry.getKey(), client);
+                }
+            }
+        }
+
+        return clientSortedMap;
+
+    }
+
     public void sortingClients() {
 
         String sorting = """
@@ -154,29 +199,29 @@ public class Menu {
 
         System.out.println('\n' + sorting);
 
-        Map<UUID, CulturalEvent> culturalEventServiceMap = Stream.of(
-                CulturalEvent.builder()
-                        .id(UUID.randomUUID())
-                        .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 0))
-                        .build(),
-                CulturalEvent.builder()
-                        .id(UUID.randomUUID())
-                        .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 30))
-                        .build()
-        ).collect(Collectors.toMap(CulturalEvent::getId, Function.identity()));
+        Map<UUID, Client> clientMap = new HashMap<>();
 
-        clientService.addAllFromGivenMap(Stream.of(
+        clientMap = Stream.of(
+                Client.builder()
+                        .id(UUID.randomUUID())
+                        .build(),
+                Client.builder()
+                        .id(UUID.randomUUID())
+                        .build()
+        ).collect(Collectors.toMap(Client::getId, Function.identity()));
+
+        clientMap = (Stream.of(
                 Client.builder()
                         .id(UUID.randomUUID())
                         .firstName("Client1")
                         .lastName("Clientescu")
                         .ticketList(List.of(Ticket.builder()
                                         .id(UUID.randomUUID())
-                                        .eventId((UUID) culturalEventServiceMap.keySet().toArray()[0])
+                                        .eventId((UUID) clientMap.keySet().toArray()[0])
                                         .build(),
                                             Ticket.builder()
                                             .id(UUID.randomUUID())
-                                            .eventId((UUID) culturalEventServiceMap.keySet().toArray()[0])
+                                            .eventId((UUID) clientMap.keySet().toArray()[0])
                                             .build()))
                         .build(),
                 Client.builder()
@@ -185,13 +230,12 @@ public class Menu {
                         .lastName("Clientescu")
                         .ticketList(List.of(Ticket.builder()
                                 .id(UUID.randomUUID())
-                                .eventId((UUID) culturalEventServiceMap.keySet().toArray()[0])
+                                .eventId((UUID) clientMap.keySet().toArray()[0])
                                 .build()))
                         .build()
         ).collect(Collectors.toMap(Client::getId, Function.identity())));
 
-        clientService.sortByTickets()
-                .forEach((keys, values) -> System.out.println(values));
+        sortClientsByTickets(clientMap).forEach((keys, values) -> System.out.println(values));
 
     }
 
