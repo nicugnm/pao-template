@@ -12,12 +12,16 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Optional<Ticket> getById(UUID id) {
-        return Optional.empty();
+        return ticketMap.values().stream()
+                .filter(element -> id.equals(element.getId()))
+                .findAny();
     }
 
     @Override
-    public Optional<Ticket> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<Ticket> getByEventId(UUID id) {
+        return ticketMap.values().stream()
+                .filter(element -> id.equals(element.getEventId()))
+                .findAny();
     }
 
     @Override

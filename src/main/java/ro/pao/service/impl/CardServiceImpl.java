@@ -13,15 +13,10 @@ public class CardServiceImpl implements CardService {
     private static Map<String, CardInformation> cardInformationMap = new HashMap<>();
 
     @Override
-    public Optional<CardInformation> getById(CardInformation cardInformation) {
-        return cardInformationMap.entrySet().stream()
-                .filter(element -> cardInformation.getCardNumber().equals(element.getValue().getCardNumber()))
-                .findAny().map(Map.Entry::getValue);
-    }
-
-    @Override
-    public Optional<CardInformation> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<CardInformation> getByCardNumber(String cardNumber) {
+        return cardInformationMap.values().stream()
+                .filter(element -> cardNumber.equals(element.getCardNumber()))
+                .findAny();
     }
 
     @Override

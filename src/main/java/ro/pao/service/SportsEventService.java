@@ -2,6 +2,7 @@ package ro.pao.service;
 
 import ro.pao.model.CulturalEvent;
 import ro.pao.model.SportsEvent;
+import ro.pao.model.SportsLocation;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ public interface SportsEventService {
 
     Optional<SportsEvent> getById(UUID id);
 
-    Optional<SportsEvent> getBySomeFieldOfClass(Object someFieldFromExampleClass);
+    Optional<SportsEvent> getByLocation(SportsLocation sportsLocation);
 
     Map<UUID, SportsEvent> getAllFromMap();
 

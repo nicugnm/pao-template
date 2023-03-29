@@ -10,9 +10,7 @@ import java.util.UUID;
 
 public interface CardService {
 
-    Optional<CardInformation> getById(CardInformation id);
-
-    Optional<CardInformation> getBySomeFieldOfClass(Object someFieldFromExampleClass);
+    Optional<CardInformation> getByCardNumber(String cardNumber);
 
     Map<String, CardInformation> getAllFromMap();
 

@@ -1,6 +1,7 @@
 package ro.pao.service;
 
 import ro.pao.model.CulturalLocation;
+import ro.pao.model.enums.CulturalLocationType;
 
 import java.util.Map;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface CulturalLocationService {
 
     Optional<CulturalLocation> getById(UUID id);
 
-    Optional<CulturalLocation> getBySomeFieldOfClass(Object someFieldFromExampleClass);
+    Optional<CulturalLocation> getByType(CulturalLocationType culturalLocationType);
 
     Map<UUID, CulturalLocation> getAllFromMap();
 

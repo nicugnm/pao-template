@@ -9,14 +9,9 @@ import java.util.Objects;
 
 @SuperBuilder
 @Getter
-public class CulturalLocation extends Location implements Comparable<CulturalLocation> {
+public class CulturalLocation extends Location {
 
     private CulturalLocationType culturalEventLocationType;
-
-    @Override
-    public int compareTo(CulturalLocation o) {
-        return CharSequence.compare(getName(), o.getName());
-    }
 
     @Override
     public boolean equals(Object o) {

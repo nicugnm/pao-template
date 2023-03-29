@@ -2,6 +2,7 @@ package ro.pao.service.impl;
 
 import ro.pao.model.CulturalLocation;
 import ro.pao.model.SportsLocation;
+import ro.pao.model.enums.CulturalLocationType;
 import ro.pao.service.CulturalEventService;
 import ro.pao.service.CulturalLocationService;
 
@@ -14,12 +15,16 @@ public class CulturalLocationServiceImpl implements CulturalLocationService {
 
     @Override
     public Optional<CulturalLocation> getById(UUID id) {
-        return Optional.empty();
+        return culturalLocationMap.values().stream()
+                .filter(element -> id.equals(element.getId()))
+                .findAny();
     }
 
     @Override
-    public Optional<CulturalLocation> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<CulturalLocation> getByType(CulturalLocationType culturalLocationType) {
+        return culturalLocationMap.values().stream()
+                .filter(element -> culturalLocationType.equals(element.getCulturalEventLocationType()))
+                .findAny();
     }
 
     @Override

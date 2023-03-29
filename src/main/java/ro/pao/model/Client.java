@@ -17,7 +17,7 @@ public class Client implements Comparable<Client> {
 
     private String lastName;
 
-    private String birthLocation;
+    private String address;
 
     private LocalDate birthDate;
 
@@ -38,11 +38,12 @@ public class Client implements Comparable<Client> {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birthLocation='" + birthLocation + '\'' +
+                ", address='" + address + '\'' +
                 ", birthDate=" + birthDate +
                 ", mailList=" + mailList +
                 ", cardList=" + cardList +
                 ", ticketList=" + ticketList +
                 '}';
     }
+
 }

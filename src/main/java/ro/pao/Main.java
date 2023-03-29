@@ -12,11 +12,15 @@ public class Main {
         while (true) {
             Menu menu = Menu.getInstance();
 
-            menu.crud();
+            menu.crudCulturalEvent();
+
+            menu.crudLocations();
+
+            menu.sortingClients();
 
             menu.sortingLocations();
 
-            menu.sortingClients();
+            menu.sortingEvents();
 
             menu.upAndDownCasting();
 

@@ -12,7 +12,7 @@ public interface TicketService {
 
     Optional<Ticket> getById(UUID id);
 
-    Optional<Ticket> getBySomeFieldOfClass(Object someFieldFromExampleClass);
+    Optional<Ticket> getByEventId(UUID id);
 
     Map<UUID, Ticket> getAllFromMap();
 

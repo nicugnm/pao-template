@@ -2,6 +2,7 @@ package ro.pao.service.impl;
 
 import ro.pao.model.CulturalEvent;
 import ro.pao.model.SportsEvent;
+import ro.pao.model.SportsLocation;
 import ro.pao.service.SportsEventService;
 
 import java.util.*;
@@ -13,12 +14,16 @@ public class SportsEventServiceImpl implements SportsEventService {
 
     @Override
     public Optional<SportsEvent> getById(UUID id) {
-        return Optional.empty();
+        return sportsEventMap.values().stream()
+                .filter(element -> id.equals(element.getId()))
+                .findAny();
     }
 
     @Override
-    public Optional<SportsEvent> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<SportsEvent> getByLocation(SportsLocation sportsLocation) {
+        return sportsEventMap.values().stream()
+                .filter(element -> sportsLocation.equals(element.getSportsLocation()))
+                .findAny();
     }
 
     @Override

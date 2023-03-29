@@ -1,6 +1,7 @@
 package ro.pao.service;
 
 import ro.pao.model.SportsLocation;
+import ro.pao.model.enums.SportsLocationType;
 
 import java.util.Map;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface SportsLocationService {
 
     Optional<SportsLocation> getById(UUID id);
 
-    Optional<SportsLocation> getBySomeFieldOfClass(Object someFieldFromExampleClass);
+    Optional<SportsLocation> getByType(SportsLocationType sportsLocationType);
 
     Map<UUID, SportsLocation> getAllFromMap();
 
@@ -21,7 +22,5 @@ public interface SportsLocationService {
     void removeElementById(UUID id);
 
     void updateElementById(UUID id, SportsLocation newElement);
-
-    Map<UUID, SportsLocation> sortByName();
 
 }

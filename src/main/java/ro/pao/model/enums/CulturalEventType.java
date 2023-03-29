@@ -27,4 +27,5 @@ public enum CulturalEventType {
                 .findAny()
                 .orElse(NONE);
     }
+
 }

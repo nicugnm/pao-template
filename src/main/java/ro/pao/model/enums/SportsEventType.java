@@ -16,6 +16,7 @@ public enum SportsEventType {
 
     private final String typeString;
 
+
     public static SportsEventType getEnumByFieldString(String field) {
         return Arrays.stream(SportsEventType.values())
                 .filter(enumElement -> enumElement.typeString.equals(field))

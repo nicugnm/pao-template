@@ -12,15 +12,17 @@ public class MailServiceImpl implements MailService {
     private static Map<UUID, MailInformation> mailInformationMap = new HashMap<>();
 
     @Override
-    public Optional<MailInformation> getById(MailInformation mailInformation) {
-        return mailInformationMap.entrySet().stream()
-                .filter(obj -> mailInformation.getId().equals(obj.getKey()))
-                .findAny().map(Map.Entry::getValue);
+    public Optional<MailInformation> getById(UUID id) {
+        return mailInformationMap.values().stream()
+                .filter(element -> id.equals(element.getId()))
+                .findAny();
     }
 
     @Override
-    public Optional<MailInformation> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<MailInformation> getByLastName(String lastName) {
+        return mailInformationMap.values().stream()
+                .filter(element -> lastName.equals(element.getLastName()))
+                .findAny();
     }
 
     @Override

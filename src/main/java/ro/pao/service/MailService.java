@@ -9,9 +9,9 @@ import java.util.UUID;
 
 public interface MailService {
 
-    Optional<MailInformation> getById(MailInformation id);
+    Optional<MailInformation> getById(UUID id);
 
-    Optional<MailInformation> getBySomeFieldOfClass(Object someFieldFromExampleClass);
+    Optional<MailInformation> getByLastName(String lastName);
 
     Map<UUID, MailInformation> getAllFromMap();
 

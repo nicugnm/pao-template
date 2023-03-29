@@ -1,6 +1,7 @@
 package ro.pao.service.impl;
 
 import ro.pao.model.CulturalEvent;
+import ro.pao.model.enums.CulturalEventType;
 import ro.pao.service.CulturalEventService;
 
 import java.util.*;
@@ -12,12 +13,16 @@ public class CulturalEventServiceImpl implements CulturalEventService {
 
     @Override
     public Optional<CulturalEvent> getById(UUID id) {
-        return Optional.empty();
+        return culturalEventMap.values().stream()
+                .filter(element -> id.equals(element.getId()))
+                .findAny();
     }
 
     @Override
-    public Optional<CulturalEvent> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<CulturalEvent> getByType(CulturalEventType culturalEventType) {
+        return culturalEventMap.values().stream()
+                .filter(element -> culturalEventType.equals(element.getCulturalEventType()))
+                .findAny();
     }
 
     @Override

@@ -2,6 +2,7 @@ package ro.pao.application;
 
 import ro.pao.model.*;
 import ro.pao.model.abstracts.Event;
+import ro.pao.model.abstracts.Location;
 import ro.pao.model.enums.CulturalLocationType;
 import ro.pao.model.enums.CulturalEventType;
 import ro.pao.model.enums.SportsLocationType;
@@ -9,6 +10,7 @@ import ro.pao.model.enums.SportsEventType;
 import ro.pao.service.*;
 import ro.pao.service.impl.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
@@ -39,54 +41,120 @@ public class Menu {
         return (INSTANCE == null ? new Menu() : INSTANCE);
     }
 
-    public void crud() {
+    public void crudCulturalEvent() {
 
         String crud = """
-                CRUD example
+                CRUD for CulturalEvents - example
                 """;
 
         System.out.println(crud);
 
         CulturalEvent culturalEvent = CulturalEvent.builder()
                 .id(UUID.randomUUID())
-                .creationDateTime(LocalDateTime.now())
-                .deleteDateTime(LocalDateTime.now())
+                .title("Desteptarea primaverii")
                 .build();
 
         culturalEventService.addOnlyOne(culturalEvent);
 
-        Map<UUID, CulturalEvent> culturalEventServiceMap = Stream.of(
+        Map<UUID, CulturalEvent> culturalEventMap = Stream.of(
                 CulturalEvent.builder()
                         .id(UUID.randomUUID())
-                        .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 0))
+                        .title("Raymonda")
+                        .culturalEventType(CulturalEventType.BALLET)
                         .build(),
                 CulturalEvent.builder()
                         .id(UUID.randomUUID())
-                        .creationDateTime(LocalDateTime.of(2023, 03, 22, 22, 30))
+                        .title("Nunta lui Figaro")
+                        .culturalEventType(CulturalEventType.OPERA)
                         .build()
         ).collect(Collectors.toMap(CulturalEvent::getId, Function.identity()));
 
-        culturalEventService.addAllFromGivenMap(culturalEventServiceMap);
+        culturalEventService.addAllFromGivenMap(culturalEventMap);
 
         System.out.println("Initial: ");
         culturalEventService.getAllFromMap()
                 .forEach((keys, values) -> System.out.println(values));
 
-        System.out.println("\nAfter setting start and end date-time: ");
-        culturalEvent.setStartDateTime(LocalDateTime.of(2023, 4, 2, 18,0));
-        culturalEvent.setEndDateTime(LocalDateTime.of(2023, 4, 2, 20, 30));
-        culturalEventService.updateElementById(culturalEvent.getId(), culturalEvent);
+        System.out.println("\nAfter setting location-type and location: ");
+        culturalEvent.setCulturalEventType(CulturalEventType.THEATER);
+        culturalEvent.setCulturalLocation(CulturalLocation.builder().id(UUID.randomUUID()).culturalEventLocationType(CulturalLocationType.THEATER).build());
+        culturalEventService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
+
+        System.out.println("\nAfter update: ");
+        CulturalEvent newCulturalEvent = CulturalEvent.builder().id(UUID.randomUUID()).title("Marea simfonie, op. 8").culturalEventType(CulturalEventType.CONCERT).build();
+        culturalEventService.updateElementById(culturalEvent.getId(), newCulturalEvent);
         culturalEventService.getAllFromMap()
                 .forEach((keys, values) -> System.out.println(values));
 
         System.out.println("\nAfter removal: ");
-        culturalEventService.removeElementById(culturalEvent.getId());
+        culturalEventService.removeElementById(newCulturalEvent.getId());
         culturalEventService.getAllFromMap()
                 .forEach((keys, values) -> System.out.println(values));
 
+        System.out.println("\nSelect events from category 'OPERA': ");
+        if(culturalEventService.getByType(CulturalEventType.OPERA).isPresent())
+            System.out.println(culturalEventService.getByType(CulturalEventType.OPERA).get());
+
     }
 
-    public Map<UUID, CulturalLocation> sortCulturalEventsByLocationName(Map<UUID, CulturalLocation> culturalLocationMap) {
+    public void crudLocations() {
+
+        String crud = """
+                \nCRUD for SportsLocations - example
+                """;
+
+        System.out.println(crud);
+
+        SportsLocation sportsLocation = SportsLocation.builder()
+                .id(UUID.randomUUID())
+                .name("Baza sportiva 1")
+                .build();
+
+        sportsLocationService.addOnlyOne(sportsLocation);
+
+        Map<UUID, SportsLocation> sportsLocationMap = Stream.of(
+                SportsLocation.builder()
+                        .id(UUID.randomUUID())
+                        .name("Patinoarul central")
+                        .sportsLocationType(SportsLocationType.ARENA)
+                        .build(),
+                sportsLocation.builder()
+                        .id(UUID.randomUUID())
+                        .name("Bazinul olimpic")
+                        .sportsLocationType(SportsLocationType.POOL)
+                        .build()
+        ).collect(Collectors.toMap(SportsLocation::getId, Function.identity()));
+
+        sportsLocationService.addAllFromGivenMap(sportsLocationMap);
+
+        System.out.println("Initial: ");
+        sportsLocationService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
+
+        System.out.println("\nAfter setting location-type: ");
+        sportsLocation.setSportsLocationType(SportsLocationType.ARENA);
+        sportsLocationService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
+
+        System.out.println("\nAfter update: ");
+        SportsLocation newSportsLocation = SportsLocation.builder().id(UUID.randomUUID()).name("Baza sportiva renovata").build();
+        sportsLocationService.updateElementById(sportsLocation.getId(), newSportsLocation);
+        sportsLocationService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
+
+        System.out.println("\nAfter removal: ");
+        sportsLocationService.removeElementById(newSportsLocation.getId());
+        sportsLocationService.getAllFromMap()
+                .forEach((keys, values) -> System.out.println(values));
+
+        System.out.println("\nSelect locations from category 'ARENA': ");
+        if(sportsLocationService.getByType(SportsLocationType.ARENA).isPresent())
+            System.out.println(sportsLocationService.getByType(SportsLocationType.ARENA).get());
+
+    }
+
+    public Map<UUID, CulturalLocation> sortByLocationName(Map<UUID, CulturalLocation> culturalLocationMap) {
 
         Map<UUID, CulturalLocation> culturalLocationSortedMap = new LinkedHashMap<>();
         List<CulturalLocation> culturalLocationSortedList = new ArrayList<>();
@@ -117,9 +185,7 @@ public class Menu {
 
         System.out.println(sorting + "\nFirst Approach (with the service implementation using sort method()):");
 
-        Map<UUID, CulturalLocation> culturalLocationMap = new HashMap<>();
-
-        culturalLocationMap = (Stream.of(
+        Map<UUID, CulturalLocation> culturalLocationMap = (Stream.of(
                 CulturalLocation.builder()
                         .id(UUID.randomUUID())
                         .name("Location ONE")
@@ -139,7 +205,7 @@ public class Menu {
                         .build()
         ).collect(Collectors.toMap(CulturalLocation::getId, Function.identity())));
 
-        sortCulturalEventsByLocationName(culturalLocationMap).forEach((keys, values) -> System.out.println(values));
+        sortByLocationName(culturalLocationMap).forEach((keys, values) -> System.out.println(values));
 
         System.out.println("\nSecond Approach (using TreeSet), so that elements are inserted directly in sorted order:");
 
@@ -148,19 +214,19 @@ public class Menu {
                         .id(UUID.randomUUID())
                         .name("Location ONE")
                         .address("Address, 1st Street, No. 19")
-                        .sportsEventLocationType(SportsLocationType.ARENA)
+                        .sportsLocationType(SportsLocationType.ARENA)
                         .build(),
                 SportsLocation.builder()
                         .id(UUID.randomUUID())
                         .name("Location TWO")
                         .address("Address, 2nd Street, No. 3")
-                        .sportsEventLocationType(SportsLocationType.POOL)
+                        .sportsLocationType(SportsLocationType.POOL)
                         .build(),
                 SportsLocation.builder()
                         .id(UUID.randomUUID())
                         .name("Location THREE")
                         .address("Region Address, No. 10")
-                        .sportsEventLocationType(SportsLocationType.CYCLING_ROUTE)
+                        .sportsLocationType(SportsLocationType.CYCLING_ROUTE)
                         .build()
         ).distinct().collect(Collectors.toCollection(TreeSet::new));
 
@@ -239,6 +305,52 @@ public class Menu {
 
     }
 
+    public Map<UUID, Event> sortEventsByDate(Map<UUID, Event> eventMap) {
+
+        Map<UUID, Event> eventSortedMap = new LinkedHashMap<>();
+        List<Event> eventSortedList = new ArrayList<>();
+
+        for (Map.Entry<UUID, Event> entry : eventMap.entrySet()) {
+            eventSortedList.add(entry.getValue());
+        }
+
+        Collections.sort(eventSortedList);
+
+        for (Event event : eventSortedList) {
+            for (Map.Entry<UUID, Event> entry : eventMap.entrySet()) {
+                if (entry.getValue().equals(event)) {
+                    eventSortedMap.put(entry.getKey(), event);
+                }
+            }
+        }
+
+        return eventSortedMap;
+
+    }
+
+    public void sortingEvents() {
+
+        String sorting = """
+                \nSorting events example
+                """;
+
+        System.out.println('\n' + sorting);
+
+        Map<UUID, Event> eventMap = new HashMap<>();
+
+        eventMap = Stream.of(
+                CulturalEvent.builder()
+                        .id(UUID.randomUUID())
+                        .startDateTime(LocalDateTime.of(2023, 04, 2, 12, 0))
+                        .build(), SportsEvent.builder()
+                        .id(UUID.randomUUID())
+                        .startDateTime(LocalDateTime.of(2023, 04, 2, 17, 0))
+                        .build()
+        ).collect(Collectors.toMap(Event::getId, Function.identity()));
+
+        sortEventsByDate(eventMap).forEach((keys, values) -> System.out.println(values));
+
+    }
 
     public void upAndDownCasting() {
         String casting = """
@@ -258,7 +370,8 @@ public class Menu {
                                 .id(UUID.randomUUID())
                                 .name("Location ONE")
                                 .address("Address, 1st Street, No. 19")
-                                .culturalEventLocationType(CulturalLocationType.CONCERT_HALL)
+                                .culturalEventLocationType(CulturalLocationType.OPERA_HOUSE)
+                                .capacity(200)
                                 .build())
                         .build(),
                 SportsEvent.builder()
@@ -269,7 +382,8 @@ public class Menu {
                                 .id(UUID.randomUUID())
                                 .name("Location TWO")
                                 .address("Address, 2nd Street, No. 3")
-                                .sportsEventLocationType(SportsLocationType.ARENA)
+                                .sportsLocationType(SportsLocationType.ARENA)
+                                .capacity(200)
                                 .build())
                         .build(),
                 SportsEvent.builder()
@@ -280,20 +394,27 @@ public class Menu {
                                 .id(UUID.randomUUID())
                                 .name("Location TWO")
                                 .address("Address, 2nd Street, No. 3")
-                                .sportsEventLocationType(SportsLocationType.POOL)
+                                .sportsLocationType(SportsLocationType.POOL)
+                                .capacity(300)
                                 .build())
                         .build()
         ).collect(Collectors.toMap(Event::getId, Function.identity()));
 
         for (Event event : eventServiceMap.values()) {
+            Integer capacity;
             if (event instanceof CulturalEvent) {
-                System.out.println(((CulturalEvent) event).getCulturalEventType());
-                System.out.println(event.nrTicketsCategories());
+                System.out.println("Type of the event: " + ((CulturalEvent) event).getCulturalEventType());
+                capacity = ((CulturalEvent) event).getCulturalLocation().getCapacity();
             }
             else {
-                System.out.println(((SportsEvent) event).getSportsEventType());
-                System.out.println(event.nrTicketsCategories());
+                System.out.println("Type of the event: " + ((SportsEvent) event).getSportsEventType());
+                capacity = ((SportsEvent) event).getSportsLocation().getCapacity();
             }
+            System.out.println("Total number of tickets available for this event:" + capacity);
+            System.out.println("Number of VIP tickets: " + event.nrTicketsCategories().get(0) +
+                               "\nNumber of Premium tickets: " + event.nrTicketsCategories().get(1) +
+                               "\nNumber of Medium tickets: " + event.nrTicketsCategories().get(2) +
+                               "\nNumber of Low-Medium tickets: " + event.nrTicketsCategories().get(3) + '\n');
         }
 
     }

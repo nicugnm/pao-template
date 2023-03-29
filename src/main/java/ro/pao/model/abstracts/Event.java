@@ -14,7 +14,7 @@ import java.util.UUID;
 @SuperBuilder
 @ToString
 @EqualsAndHashCode
-public abstract class Event {
+public abstract class Event implements Comparable<Event> {
 
     private UUID id;
 
@@ -27,5 +27,21 @@ public abstract class Event {
     private LocalDateTime deleteDateTime;
 
     public abstract List<Integer> nrTicketsCategories();
+
+    @Override
+    public int compareTo(Event o) {
+        return startDateTime.compareTo(o.startDateTime);
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", creationDateTime=" + creationDateTime +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", deleteDateTime=" + deleteDateTime +
+                '}';
+    }
 
 }

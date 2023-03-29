@@ -15,12 +15,16 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Optional<Client> getById(UUID id) {
-        return Optional.empty();
+        return clientMap.values().stream()
+                .filter(element -> id.equals(element.getId()))
+                .findAny();
     }
 
     @Override
-    public Optional<Client> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<Client> getByAddress(String address) {
+        return clientMap.values().stream()
+                .filter(element -> address.equals(element.getAddress()))
+                .findAny();
     }
 
     @Override

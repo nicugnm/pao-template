@@ -2,6 +2,7 @@ package ro.pao.service.impl;
 
 import ro.pao.model.CulturalLocation;
 import ro.pao.model.SportsLocation;
+import ro.pao.model.enums.SportsLocationType;
 import ro.pao.service.CulturalEventService;
 import ro.pao.service.CulturalLocationService;
 import ro.pao.service.SportsLocationService;
@@ -15,12 +16,16 @@ public class SportsLocationServiceImpl implements SportsLocationService {
 
     @Override
     public Optional<SportsLocation> getById(UUID id) {
-        return Optional.empty();
+        return sportsLocationMap.values().stream()
+                .filter(element -> id.equals(element.getId()))
+                .findAny();
     }
 
     @Override
-    public Optional<SportsLocation> getBySomeFieldOfClass(Object someFieldFromExampleClass) {
-        return Optional.empty();
+    public Optional<SportsLocation> getByType(SportsLocationType sportsLocationType) {
+        return sportsLocationMap.values().stream()
+                .filter(element -> sportsLocationType.equals(element.getSportsLocationType()))
+                .findAny();
     }
 
     @Override
@@ -49,30 +54,6 @@ public class SportsLocationServiceImpl implements SportsLocationService {
     public void updateElementById(UUID id, SportsLocation newSportsLocation) {
         removeElementById(id);
         addOnlyOne(newSportsLocation);
-    }
-
-    @Override
-    public Map<UUID, SportsLocation> sortByName() {
-
-        Map<UUID, SportsLocation> sportsLocationSortedMap = new LinkedHashMap<>();
-        List<SportsLocation> sportsLocationSortedList = new ArrayList<>();
-
-        for (Map.Entry<UUID, SportsLocation> entry : getAllFromMap().entrySet()) {
-            sportsLocationSortedList.add(entry.getValue());
-        }
-
-        Collections.sort(sportsLocationSortedList);
-
-        for (SportsLocation sportsLocation : sportsLocationSortedList) {
-            for (Map.Entry<UUID, SportsLocation> entry : getAllFromMap().entrySet()) {
-                if (entry.getValue().equals(sportsLocation)) {
-                    sportsLocationSortedMap.put(entry.getKey(), sportsLocation);
-                }
-            }
-        }
-
-        return sportsLocationSortedMap;
-
     }
 
 }

@@ -12,7 +12,7 @@ public interface ClientService {
 
     Optional<Client> getById(UUID id);
 
-    Optional<Client> getBySomeFieldOfClass(Object someFieldFromExampleClass);
+    Optional<Client> getByAddress(String address);
 
     Map<UUID, Client> getAllFromMap();
 
