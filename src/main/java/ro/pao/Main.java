@@ -22,7 +22,9 @@ public class Main {
 
             menu.sortingEvents();
 
-            menu.upAndDownCasting();
+            menu.ticketsCategoriesForEvent();
+
+            menu.availableTickets();
 
             if ("exit".equals(scanner.next())) {
                 break;

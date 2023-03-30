@@ -267,15 +267,6 @@ public class Menu {
 
         Map<UUID, Client> clientMap = new HashMap<>();
 
-        clientMap = Stream.of(
-                Client.builder()
-                        .id(UUID.randomUUID())
-                        .build(),
-                Client.builder()
-                        .id(UUID.randomUUID())
-                        .build()
-        ).collect(Collectors.toMap(Client::getId, Function.identity()));
-
         clientMap = (Stream.of(
                 Client.builder()
                         .id(UUID.randomUUID())
@@ -283,11 +274,9 @@ public class Menu {
                         .lastName("Clientescu")
                         .ticketList(List.of(Ticket.builder()
                                         .id(UUID.randomUUID())
-                                        .eventId((UUID) clientMap.keySet().toArray()[0])
                                         .build(),
                                             Ticket.builder()
                                             .id(UUID.randomUUID())
-                                            .eventId((UUID) clientMap.keySet().toArray()[0])
                                             .build()))
                         .build(),
                 Client.builder()
@@ -296,7 +285,6 @@ public class Menu {
                         .lastName("Clientescu")
                         .ticketList(List.of(Ticket.builder()
                                 .id(UUID.randomUUID())
-                                .eventId((UUID) clientMap.keySet().toArray()[0])
                                 .build()))
                         .build()
         ).collect(Collectors.toMap(Client::getId, Function.identity())));
@@ -352,7 +340,7 @@ public class Menu {
 
     }
 
-    public void upAndDownCasting() {
+    public void ticketsCategoriesForEvent() {
         String casting = """
                 \nUp- and Down-casting example:
                 """;
@@ -415,6 +403,84 @@ public class Menu {
                                "\nNumber of Premium tickets: " + event.nrTicketsCategories().get(1) +
                                "\nNumber of Medium tickets: " + event.nrTicketsCategories().get(2) +
                                "\nNumber of Low-Medium tickets: " + event.nrTicketsCategories().get(3) + '\n');
+        }
+
+    }
+
+    public void availableTickets() {
+        String available = """
+                \nAvailable tickets functionality - example:
+                """;
+
+        System.out.println(available);
+
+        CulturalLocation culturalLocation1 = CulturalLocation.builder()
+                .id(UUID.randomUUID()).name("Consonance Hall")
+                .capacity(40).build();
+
+        CulturalLocation culturalLocation2 = CulturalLocation.builder()
+                .id(UUID.randomUUID()).name("ConcertGebouw")
+                .capacity(350).build();
+
+        CulturalEvent culturalEvent1 = new CulturalEvent(UUID.randomUUID(), LocalDateTime.of(2023, 03, 25, 11, 30), LocalDateTime.of(2023, 03, 25, 11, 30), LocalDateTime.of(2023, 03, 25, 11, 30), LocalDateTime.of(2023, 03, 25, 11, 30)
+                , "titlu1", "descriere1", CulturalEventType.CONCERT, culturalLocation1);
+
+        CulturalEvent culturalEvent2 = new CulturalEvent(UUID.randomUUID(), LocalDateTime.of(2023, 03, 25, 11, 30), LocalDateTime.of(2023, 03, 25, 11, 30), LocalDateTime.of(2023, 03, 25, 11, 30), LocalDateTime.of(2023, 03, 25, 11, 30)
+                , "titlu2", "descriere2", CulturalEventType.CONCERT, culturalLocation2);
+
+        List<Ticket> ticketList1 = new ArrayList<>();
+        List<Ticket> ticketList2 = new ArrayList<>();
+
+        ticketList1.add(Ticket.builder()
+                        .id(UUID.randomUUID())
+                        .eventId(culturalEvent1.getId())
+                        .build());
+        ticketList2.add(Ticket.builder()
+                        .id(UUID.randomUUID())
+                        .eventId(culturalEvent2.getId())
+                        .build());
+
+        Client client1 = Client.builder()
+                .id(UUID.randomUUID())
+                .firstName("Client1")
+                .lastName("Clientescu")
+                .ticketList(ticketList1)
+                .build();
+        Client client2 = Client.builder()
+                .id(UUID.randomUUID())
+                .firstName("Client2")
+                .lastName("Clientescu")
+                .ticketList(ticketList2)
+                .build();
+
+        Map<UUID, Client> clientMap = Stream.of(
+                client1,
+                client2
+        ).collect(Collectors.toMap(Client::getId, Function.identity()));
+
+        Map<UUID, Event> eventMap = Stream.of(
+                culturalEvent1,
+                culturalEvent2
+                ).collect(Collectors.toMap(Event::getId, Function.identity()));
+
+        Scanner scanner = new Scanner(System.in);
+
+        for (Client client : clientMap.values()) {
+
+            for (Event event : eventMap.values()) {
+
+                System.out.println("\nPlease enter the number of tickets you want to buy for this event: ");
+                Integer nrTickets = scanner.nextInt();
+                client.buyTickets(event, nrTickets);
+
+            }
+
+        }
+
+        System.out.println("\nLists of tickets for all clients: ");
+        for (Client client : clientMap.values()) {
+            System.out.println("\nThis client has bought " + client.getTicketList().size() + " tickets: ");
+            System.out.println(client.getTicketList());
         }
 
     }

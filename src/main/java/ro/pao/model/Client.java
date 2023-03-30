@@ -2,9 +2,11 @@ package ro.pao.model;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
+import ro.pao.model.abstracts.Event;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +28,23 @@ public class Client implements Comparable<Client> {
     private List<CardInformation> cardList;
 
     private List<Ticket> ticketList;
+
+    public void buyTickets(Event event, Integer nrRequestedTickets) {
+
+        event.sellTickets(nrRequestedTickets);
+
+        if (nrRequestedTickets <= event.getNrAvailableTickets()) {
+
+            for (Integer i = 0; i < nrRequestedTickets; i++) {
+                ticketList.add(Ticket.builder()
+                        .id(UUID.randomUUID())
+                        .eventId(event.getId())
+                        .build());
+            }
+
+        }
+
+    }
 
     @Override
     public int compareTo(Client o) {
