@@ -22,11 +22,11 @@
 ### Available functionalities
 - CRUD operations for MailInformation
 - CRUD operations for CulturalEvent
-- CRUD operations for Locations
+- CRUD operations for Location
 - Sorting Locations in lexicographic order
 - Sorting Clients by number of tickets they have purchased
 - Sorting Events by StartDate
 - Filter SportsEvents by their location-type
 - Set DeleteTime for Events that have already started
-- Get number of tickets for an event, on categories
+- Get number of tickets for an event, grouped by ticket-category
 - Functionality for "buying" and "selling" tickets for an event
