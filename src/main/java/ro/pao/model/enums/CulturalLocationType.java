@@ -30,6 +30,7 @@ public enum CulturalLocationType {
     private final Integer percentageLowMediumTickets;
 
     public static CulturalLocationType getEnumByFieldString(String field) {
+
         return Arrays.stream(CulturalLocationType.values())
                 .filter(enumElement -> enumElement.typeString.equals(field))
                 .findAny()

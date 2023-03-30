@@ -11,7 +11,7 @@ public interface MailService {
 
     Optional<MailInformation> getById(UUID id);
 
-    Optional<MailInformation> getByLastName(String lastName);
+    Optional<MailInformation> getByName(String lastName, String firstName);
 
     Map<UUID, MailInformation> getAllFromMap();
 

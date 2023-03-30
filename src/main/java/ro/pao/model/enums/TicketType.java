@@ -17,9 +17,12 @@ public enum TicketType {
     private final String typeString;
 
     public static TicketType getEnumByFieldString(String field) {
+
         return Arrays.stream(TicketType.values())
                 .filter(enumElement -> enumElement.typeString.equals(field))
                 .findAny()
                 .orElse(NONE);
+
     }
+
 }

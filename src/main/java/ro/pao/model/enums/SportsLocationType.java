@@ -28,6 +28,7 @@ public enum SportsLocationType {
     private final Integer percentageLowMediumTickets;
 
     public static SportsLocationType getEnumByFieldString(String field) {
+
         return Arrays.stream(SportsLocationType.values())
                 .filter(enumElement -> enumElement.typeString.equals(field))
                 .findAny()

@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@ToString
 public class CardInformation {
     private String balance;
 
@@ -20,6 +19,7 @@ public class CardInformation {
     private String cardNumber;
 
     private final Predicate<String> cardCondition = (cardNumber) -> cardNumber.length() == 16 && cardNumber.matches("[0-9]+") && cardNumber.equals(this.cardNumber);
+
     private final BiPredicate<String, String> fullNameCondition = (firstNameOwner, lastNameOwner) -> firstNameOwner.equals(this.firstNameOwner) && lastNameOwner.equals(this.lastNameOwner);
 
     public CardInformation(String card) {
@@ -38,6 +38,16 @@ public class CardInformation {
         this.firstNameOwner = firstNameOwner;
         this.lastNameOwner = lastNameOwner;
         this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "CardInformation{" +
+                "balance='" + balance + '\'' +
+                ", firstNameOwner='" + firstNameOwner + '\'' +
+                ", lastNameOwner='" + lastNameOwner + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                '}';
     }
 
 }

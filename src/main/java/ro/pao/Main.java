@@ -12,27 +12,32 @@ public class Main {
         while (true) {
             Menu menu = Menu.getInstance();
 
+            menu.crudMailInformation();
+
             menu.crudCulturalEvent();
 
             menu.crudLocations();
 
             menu.sortingClients();
 
+            menu.sortingEvents();
+
             menu.sortingLocations();
 
-            menu.sortingEvents();
+            menu.filterSportsEventByLocationType();
+
+            menu.setDeleteTimeForOldEvents();
 
             menu.ticketsCategoriesForEvent();
 
             menu.buySellTickets();
 
-            menu.setDeleteTimeForOldEvents();
-
-            menu.filterSportsEventByLocationType();
-
             if ("exit".equals(scanner.next())) {
                 break;
             }
+
         }
+
     }
+
 }

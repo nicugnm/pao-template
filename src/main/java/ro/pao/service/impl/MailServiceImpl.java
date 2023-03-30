@@ -19,9 +19,10 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public Optional<MailInformation> getByLastName(String lastName) {
+    public Optional<MailInformation> getByName(String lastName, String firstName) {
         return mailInformationMap.values().stream()
                 .filter(element -> lastName.equals(element.getLastName()))
+                .filter(element -> firstName.equals(element.getFirstName()))
                 .findAny();
     }
 

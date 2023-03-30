@@ -9,8 +9,9 @@ import java.util.function.Predicate;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-@ToString
+@Builder
 public class MailInformation {
 
     private UUID id;
@@ -19,7 +20,10 @@ public class MailInformation {
 
     private String lastName;
 
+    private String address;
+
     private final Predicate<String> mailCondition = (mail) -> mail.contains("@yahoo") || mail.contains("@gmail");
+
     private final BiPredicate<String, String> fullNameCondition = (firstName, lastName) -> firstName.equals(this.firstName) && lastName.equals(this.lastName);
 
     public MailInformation(String mail) {
@@ -42,4 +46,15 @@ public class MailInformation {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    @Override
+    public String toString() {
+        return "MailInformation{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+    
 }
