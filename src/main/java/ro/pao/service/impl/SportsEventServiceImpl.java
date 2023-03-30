@@ -3,6 +3,7 @@ package ro.pao.service.impl;
 import ro.pao.model.CulturalEvent;
 import ro.pao.model.SportsEvent;
 import ro.pao.model.SportsLocation;
+import ro.pao.model.enums.SportsLocationType;
 import ro.pao.service.SportsEventService;
 
 import java.util.*;
@@ -52,6 +53,12 @@ public class SportsEventServiceImpl implements SportsEventService {
     public void updateElementById(UUID id, SportsEvent newSportsEvent) {
         removeElementById(id);
         addOnlyOne(newSportsEvent);
+    }
+
+    public Map<UUID, SportsEvent> filterByLocationType(SportsLocationType sportsLocationType) {
+        return sportsEventMap.entrySet().stream()
+                .filter(element -> sportsLocationType.equals(element.getValue().getSportsLocation().getSportsLocationType()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
 }

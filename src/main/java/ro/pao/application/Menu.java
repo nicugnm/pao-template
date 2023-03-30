@@ -92,7 +92,7 @@ public class Menu {
         culturalEventService.getAllFromMap()
                 .forEach((keys, values) -> System.out.println(values));
 
-        System.out.println("\nSelect events from category 'OPERA': ");
+        System.out.println("\nGet an event from category 'OPERA': ");
         if(culturalEventService.getByType(CulturalEventType.OPERA).isPresent())
             System.out.println(culturalEventService.getByType(CulturalEventType.OPERA).get());
 
@@ -148,7 +148,7 @@ public class Menu {
         sportsLocationService.getAllFromMap()
                 .forEach((keys, values) -> System.out.println(values));
 
-        System.out.println("\nSelect locations from category 'ARENA': ");
+        System.out.println("\nGet a location from category 'ARENA': ");
         if(sportsLocationService.getByType(SportsLocationType.ARENA).isPresent())
             System.out.println(sportsLocationService.getByType(SportsLocationType.ARENA).get());
 
@@ -487,6 +487,12 @@ public class Menu {
 
     public void setDeleteTimeForOldEvents() {
 
+        String deleteTime = """
+                \nSetting delete time for events that have already started - example:
+                """;
+
+        System.out.println(deleteTime);
+
         Map<UUID, CulturalEvent> culturalEventMap = Stream.of(
                 CulturalEvent.builder()
                         .id(UUID.randomUUID())
@@ -509,5 +515,46 @@ public class Menu {
         culturalEventService.getAllFromMap().forEach((keys, values) -> System.out.println(values));
 
     }
+
+    public void filterSportsEventByLocationType() {
+
+        String filter = """
+                \nFilter SportsEvents by their location type - example:
+                """;
+
+        System.out.println(filter);
+
+        Map<UUID, SportsEvent> sportsEventMap = Stream.of(
+                SportsEvent.builder()
+                        .id(UUID.randomUUID())
+                        .startDateTime(LocalDateTime.of(2023, 3, 25, 12, 13))
+                        .competition("Grand Slam")
+                        .sportsEventType(SportsEventType.TENNIS)
+                        .sportsLocation(SportsLocation.builder()
+                                .id(UUID.randomUUID())
+                                .name("Arena Arthur Ashe")
+                                .sportsLocationType(SportsLocationType.ARENA)
+                                .build())
+                        .build(),
+                SportsEvent.builder()
+                        .id(UUID.randomUUID())
+                        .startDateTime(LocalDateTime.of(2023, 3, 25, 12, 13))
+                        .competition("Jocurile Olimpice")
+                        .sportsEventType(SportsEventType.SWIMMING)
+                        .sportsLocation(SportsLocation.builder()
+                                .id(UUID.randomUUID())
+                                .name("Bazinul olimpic")
+                                .sportsLocationType(SportsLocationType.POOL)
+                                .build())
+                        .build()
+        ).collect(Collectors.toMap(SportsEvent::getId, Function.identity()));
+
+        sportsEventService.addAllFromGivenMap(sportsEventMap);
+
+        sportsEventService.filterByLocationType(SportsLocationType.ARENA).forEach((keys, values) -> System.out.println(values));
+
+    }
+
+
 
 }

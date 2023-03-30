@@ -3,6 +3,7 @@ package ro.pao.service;
 import ro.pao.model.CulturalEvent;
 import ro.pao.model.SportsEvent;
 import ro.pao.model.SportsLocation;
+import ro.pao.model.enums.SportsLocationType;
 
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,7 @@ public interface SportsEventService {
     void removeElementById(UUID id);
 
     void updateElementById(UUID id, SportsEvent newSportsEvent);
+
+    Map<UUID, SportsEvent> filterByLocationType(SportsLocationType sportsLocationType);
 
 }

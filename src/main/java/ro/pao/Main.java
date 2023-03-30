@@ -28,6 +28,8 @@ public class Main {
 
             menu.setDeleteTimeForOldEvents();
 
+            menu.filterSportsEventByLocationType();
+
             if ("exit".equals(scanner.next())) {
                 break;
             }
