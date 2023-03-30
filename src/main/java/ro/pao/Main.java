@@ -24,7 +24,9 @@ public class Main {
 
             menu.ticketsCategoriesForEvent();
 
-            menu.availableTickets();
+            menu.buySellTickets();
+
+            menu.setDeleteTimeForOldEvents();
 
             if ("exit".equals(scanner.next())) {
                 break;

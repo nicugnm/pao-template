@@ -11,8 +11,6 @@ S
 0src/main/java/ro/pao/model/enums/TicketType.java,6\0\60cda39e94a495ca820abc38c0f9022a453b63c8
 ]
 -src/main/java/ro/pao/service/CardService.java,9\f\9fd82fb6deb78529bd89c80a8a1f8b7d5d5ae026
-f
-6src/main/java/ro/pao/service/CulturalEventService.java,1\e\1ea27a2095409c0ec95e00cca5450f265f56dd49
 i
 9src/main/java/ro/pao/service/CulturalLocationService.java,a\a\aaffc088a823b7f9c0d5fe219cdba39c407e6b3f
 _
@@ -49,5 +47,3 @@ p
 @src/main/java/ro/pao/service/impl/SportsLocationServiceImpl.java,6\7\678657325c0213091375b5f01f4c7d024ba463ec
 h
 8src/main/java/ro/pao/service/impl/TicketServiceImpl.java,7\5\7596a290b160da342379e6b2db1459ec9ebf3b12
-o
-?src/main/java/ro/pao/service/impl/CulturalEventServiceImpl.java,a\d\ad4137c2b1dfe8e6c3a68cec47e942301ac0bc19

@@ -407,7 +407,7 @@ public class Menu {
 
     }
 
-    public void availableTickets() {
+    public void buySellTickets() {
         String available = """
                 \nAvailable tickets functionality - example:
                 """;
@@ -482,6 +482,31 @@ public class Menu {
             System.out.println("\nThis client has bought " + client.getTicketList().size() + " tickets: ");
             System.out.println(client.getTicketList());
         }
+
+    }
+
+    public void setDeleteTimeForOldEvents() {
+
+        Map<UUID, CulturalEvent> culturalEventMap = Stream.of(
+                CulturalEvent.builder()
+                        .id(UUID.randomUUID())
+                        .startDateTime(LocalDateTime.of(2023, 3, 25, 12, 13))
+                        .title("Raymonda")
+                        .culturalEventType(CulturalEventType.BALLET)
+                        .build(),
+                CulturalEvent.builder()
+                        .id(UUID.randomUUID())
+                        .startDateTime(LocalDateTime.of(2023, 3, 25, 12, 13))
+                        .title("Nunta lui Figaro")
+                        .culturalEventType(CulturalEventType.OPERA)
+                        .build()
+        ).collect(Collectors.toMap(CulturalEvent::getId, Function.identity()));
+
+        culturalEventService.addAllFromGivenMap(culturalEventMap);
+
+        culturalEventService.removeOldEvents();
+
+        culturalEventService.getAllFromMap().forEach((keys, values) -> System.out.println(values));
 
     }
 

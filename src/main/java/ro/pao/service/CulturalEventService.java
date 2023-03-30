@@ -21,6 +21,8 @@ public interface CulturalEventService {
 
     void removeElementById(UUID id);
 
+    void removeOldEvents();
+
     void updateElementById(UUID id, CulturalEvent newCulturalEvent);
 
 }

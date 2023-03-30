@@ -4,6 +4,7 @@ import ro.pao.model.CulturalEvent;
 import ro.pao.model.enums.CulturalEventType;
 import ro.pao.service.CulturalEventService;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,15 @@ public class CulturalEventServiceImpl implements CulturalEventService {
         culturalEventMap = culturalEventMap.entrySet().stream()
                 .filter(element -> !id.equals(element.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public void removeOldEvents() {
+
+        for(Map.Entry<UUID, CulturalEvent> entry : culturalEventMap.entrySet()){
+            if(entry.getValue().getStartDateTime() != null && entry.getValue().getStartDateTime().isBefore(LocalDateTime.now()))
+                entry.getValue().setDeleteDateTime(LocalDateTime.now());
+        }
+
     }
 
     @Override
