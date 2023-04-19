@@ -16,4 +16,12 @@ import ro.pao.model.enums.EnumExample;
 public class ExampleClass extends AbstractEntity {
 
     private EnumExample enumExample;
+
+    private Integer exampleIntField;
+
+    private String exampleStringField;
+
+    private Double exampleDoubleField;
+
+    private Float exampleFloatField;
 }
