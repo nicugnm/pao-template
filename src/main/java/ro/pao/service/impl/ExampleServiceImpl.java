@@ -2,6 +2,8 @@ package ro.pao.service.impl;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ro.pao.application.CsvHelperFactory;
+import ro.pao.application.csv.CsvExecutor;
 import ro.pao.model.ExampleClass;
 import ro.pao.service.ExampleService;
 
@@ -67,5 +69,10 @@ public class ExampleServiceImpl implements ExampleService {
         // sterg elementul dat si adaug altul
         removeElementById(id);
         addOnlyOne(newElement);
+    }
+
+    private void insertIntoCsv(List<ExampleClass> exampleClassList) throws Exception {
+        CsvExecutor csvExecutor = CsvHelperFactory.getInstance(CsvHelperFactory.CsvType.WRITER);
+        csvExecutor.executeAllLines(List.of(new String[]{"bla, bla"}, new String[]{"bla bla", "bla bla"}));
     }
 }
