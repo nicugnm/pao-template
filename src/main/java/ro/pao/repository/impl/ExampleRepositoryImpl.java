@@ -19,7 +19,7 @@ public class ExampleRepositoryImpl implements ExampleRepository {
 
     @Override
     public Optional<ExampleClass> getObjectById(UUID id) {
-        String selectSql = "SELECT * FROM person WHERE id=?";
+        String selectSql = "SELECT * FROM example_table WHERE id=?";
 
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectSql)) {
@@ -36,7 +36,7 @@ public class ExampleRepositoryImpl implements ExampleRepository {
 
     @Override
     public void deleteObjectById(UUID id) {
-        String updateNameSql = "DELETE FROM person WHERE id=?";
+        String updateNameSql = "DELETE FROM example_table WHERE id=?";
 
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(updateNameSql)) {
@@ -50,7 +50,7 @@ public class ExampleRepositoryImpl implements ExampleRepository {
 
     @Override
     public void updateObjectById(UUID id, ExampleClass newObject) {
-        String updateNameSql = "UPDATE person SET name=? WHERE id=?";
+        String updateNameSql = "UPDATE example_table SET name=? WHERE id=?";
 
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(updateNameSql)) {
@@ -65,7 +65,7 @@ public class ExampleRepositoryImpl implements ExampleRepository {
 
     @Override
     public void addNewObject(ExampleClass exampleClass) {
-        String insertSql = "INSERT INTO person (id, name) VALUES (?, ?)";
+        String insertSql = "INSERT INTO example_table (id, name) VALUES (?, ?)";
 
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertSql)) {
@@ -80,7 +80,7 @@ public class ExampleRepositoryImpl implements ExampleRepository {
 
     @Override
     public List<ExampleClass> getAll() {
-        String selectSql = "SELECT * FROM person";
+        String selectSql = "SELECT * FROM example_table";
 
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectSql)) {

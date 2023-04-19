@@ -2,6 +2,7 @@ package ro.pao.service.impl;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import ro.pao.model.ExampleClass;
 import ro.pao.repository.ExampleRepository;
 import ro.pao.repository.impl.ExampleRepositoryImpl;
@@ -16,11 +17,11 @@ import java.util.stream.Collectors;
 /**
  * Aici implementam metodele din interfata serviciului definit.
  */
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public class ExampleServiceImpl implements ExampleService {
 
-    private final ExampleRepository exampleRepository = new ExampleRepositoryImpl();
+    private final ExampleRepository exampleRepository;
 
     @Override
     public Optional<ExampleClass> getById(UUID id) {
@@ -35,6 +36,13 @@ public class ExampleServiceImpl implements ExampleService {
     @Override
     public List<ExampleClass> getAllFromList() {
         return exampleRepository.getAll();
+    }
+
+    @Override
+    public List<ExampleClass> getAllWithCondition() {
+        return exampleRepository.getAll().stream()
+                .filter(exampleClass -> exampleClass.getExampleStringField().contains("A"))
+                .collect(Collectors.toList());
     }
 
     @Override
