@@ -14,6 +14,8 @@ public class Main {
 
             menu.intro();
 
+            System.out.println("Type 'exit' to exit the program, or anything else to continue.");
+
             if ("exit".equals(scanner.next())) {
                 break;
             }

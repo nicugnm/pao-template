@@ -1,10 +1,9 @@
 package ro.pao.model;
 
 import ro.pao.model.abstracts.AbstractEntity;
-
-import java.util.UUID;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import ro.pao.model.enums.CourseType;
 
 @Getter
 @Setter
@@ -12,8 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @ToString
-public class PairInfo extends AbstractEntity {
-    private UUID studentId;
-    private Integer grade;
-
+public class Course extends AbstractEntity {
+    private CourseType courseType;
+    private String name;
 }

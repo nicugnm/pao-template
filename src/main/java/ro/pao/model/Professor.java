@@ -1,15 +1,23 @@
 package ro.pao.model;
 
 import ro.pao.model.abstracts.Person;
+import ro.pao.model.enums.PersonType;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+@ToString
 public class Professor extends Person {
-    List<UUID> courses;
-    private Integer birthYear;
-    private LocalTime birthTime;
+    private List<UUID> courses;
+    private LocalDateTime birthDate;
     private String birthPlace;
     private String email;
 }
