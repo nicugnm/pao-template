@@ -2,11 +2,11 @@ package ro.pao.application;
 
 import ro.pao.model.Course;
 import ro.pao.model.Student;
-import ro.pao.model.abstracts.Person;
 import ro.pao.model.enums.CourseType;
 import ro.pao.model.enums.DegreeType;
 import ro.pao.model.enums.FrequencyType;
 import ro.pao.model.enums.PersonType;
+import ro.pao.model.records.CourseData;
 import ro.pao.service.CourseService;
 import ro.pao.service.PersonService;
 import ro.pao.service.StudentService;
@@ -15,7 +15,6 @@ import ro.pao.service.impl.PersonServiceImpl;
 import ro.pao.service.impl.StudentServiceImpl;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -96,6 +95,36 @@ public class Menu {
                         .courseType(CourseType.OPTIONAL)
                         .build()
                                         ));
+        List<Student> students = List.of(
+                Student.builder()
+                        .firstName("John")
+                        .lastName("Doe")
+                        .degree(DegreeType.BACHELOR)
+                        .frequency(FrequencyType.ID)
+                        .build(),
+                Student.builder()
+                        .firstName("Jane")
+                        .lastName("Doe")
+                        .degree(DegreeType.BACHELOR)
+                        .frequency(FrequencyType.IF)
+                        .build(),
+                Student.builder()
+                        .firstName("John")
+                        .lastName("Smith")
+                        .degree(DegreeType.MASTER)
+                        .frequency(FrequencyType.ID)
+                        .build()
+                                          );
+        studentService.addStudents(students);
+        studentService.addCourseToStudent(students.get(0), courseService.getCourseByName("Mathematics").get().getId());
+        studentService.addCourseToStudent(students.get(0), courseService.getCourseByName("English").get().getId());
+        studentService.addCourseToStudent(students.get(0), courseService.getCourseByName("OOP").get().getId());
+        studentService.addCourseToStudent(students.get(0), courseService.getCourseByName("Algebra").get().getId());
+        studentService.addCourseToStudent(students.get(0), courseService.getCourseByName("Geometry").get().getId());
+        studentService.addCourseToStudent(students.get(0), courseService.getCourseByName("Physics").get().getId());
+        studentService.addCourseToStudent(students.get(1), courseService.getCourseByName("Mathematics").get().getId());
+        studentService.addCourseToStudent(students.get(1), courseService.getCourseByName("English").get().getId());
+        studentService.addCourseToStudent(students.get(2), courseService.getCourseByName("OOP").get().getId());
     }
 
     private void menu() {
@@ -107,6 +136,7 @@ public class Menu {
                 0. Exit
                 1. Add student
                 2. See students
+                3. See students by type of course they attend
                 
                 """;
 
@@ -119,9 +149,26 @@ public class Menu {
                 case "0" -> flag = false;
                 case "1" -> addStudent();
                 case "2" -> seeStudents();
+                case "3" -> seeStudentsByTypeOfCourse();
                 default -> System.out.println("Invalid input. Try again.");
             }
 
+        }
+    }
+
+    private void seeStudentsByTypeOfCourse() {
+        personService.setRequiredUser(PersonType.SECRETARY);
+        if (canAccess.test(personService)) {
+            CourseData courseData = studentService.getCourseData();
+            System.out.println("    Students by type of course they attend:");
+            System.out.println("        Mandatory:");
+            courseData.mandatories().forEach(System.out::println);
+            System.out.println("        Optional:");
+            courseData.optionals().forEach(System.out::println);
+            System.out.println("        Facultative:");
+            courseData.facultatives().forEach(System.out::println);
+        } else {
+            System.out.println("You don't have access to this option.");
         }
     }
 

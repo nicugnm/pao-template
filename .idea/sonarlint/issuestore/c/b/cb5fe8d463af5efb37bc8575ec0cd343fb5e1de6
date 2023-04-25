@@ -1,0 +1,10 @@
+
+p
+java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨®ï›8û‰Û¤û0
+\
+java:S1118
+":Add a private constructor to hide the implicit public one.(ãé‰ãÿÿÿÿÿ8ý‰Û¤û0
+T
+java:S1068"2Remove this unused "studentService" private field.(§ÞÃ•øÿÿÿÿ8ÿ‰Û¤û0
+Q
+java:S1068"4Remove this unused "courseStudentMap" private field.(—ò¤Ÿ8ÿ‰Û¤û0
