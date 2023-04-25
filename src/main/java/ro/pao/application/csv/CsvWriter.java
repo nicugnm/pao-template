@@ -50,14 +50,14 @@ public class CsvWriter {
 
     public String executeLineByLine(List<String[]> lines) throws Exception {
         Path path = Paths.get(
-                ClassLoader.getSystemResource(CSV_PATH_READ).toURI());
+                ClassLoader.getSystemResource(CSV_PATH_WRITE).toURI());
 
         return writeLineByLine(lines, path);
     }
 
     public String executeAllLines(List<String[]> lines) throws Exception {
         Path path = Paths.get(
-                ClassLoader.getSystemResource(CSV_PATH_READ).toURI());
+                ClassLoader.getSystemResource(CSV_PATH_WRITE).toURI());
 
         return writeAllLines(lines, path);
     }
