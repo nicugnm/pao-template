@@ -12,7 +12,7 @@ import java.util.List;
 
 import static ro.pao.application.utils.Constants.CSV_PATH_READ;
 
-public class CsvReader implements CsvExecutor {
+public class CsvReader {
 
     private static CsvReader INSTANCE;
 
@@ -21,7 +21,11 @@ public class CsvReader implements CsvExecutor {
     }
 
     public static CsvReader getInstance() {
-        return INSTANCE == null ? new CsvReader() : INSTANCE;
+        if (INSTANCE == null) {
+            INSTANCE = new CsvReader();
+        }
+
+        return INSTANCE;
     }
 
     public List<String[]> readAllLines(Path filePath) throws Exception {
@@ -45,7 +49,6 @@ public class CsvReader implements CsvExecutor {
         return list;
     }
 
-    @Override
     public List<String[]> executeLineByLine() throws Exception {
         Path path = Paths.get(
                 ClassLoader.getSystemResource(CSV_PATH_READ).toURI());
@@ -53,21 +56,10 @@ public class CsvReader implements CsvExecutor {
         return readLineByLine(path);
     }
 
-    @Override
     public List<String[]> executeAllLines() throws Exception {
         Path path = Paths.get(
                 ClassLoader.getSystemResource(CSV_PATH_READ).toURI());
 
         return readAllLines(path);
-    }
-
-    @Override
-    public String executeLineByLine(List<String[]> lines) throws Exception {
-        throw new NotImplementedException("Not implemented!");
-    }
-
-    @Override
-    public String executeAllLines(List<String[]> lines) throws Exception {
-        throw new NotImplementedException("Not implemented!");
     }
 }
