@@ -125,12 +125,17 @@ public class ExampleServiceImpl implements ExampleService {
 
             // Write line by line
             Path lineByLinePath = Paths.get("line_by_line.csv");
+
+            //String lineByLineContentsPathDefined = csvWriter.executeLineByLine(lines);
             String lineByLineContents = csvWriter.writeLineByLine(lines, lineByLinePath);
             System.out.println("Contents of line_by_line.csv:");
             System.out.println(lineByLineContents);
 
+
+
             // Write all lines at once
             Path allLinesPath = Paths.get("all_lines.csv");
+            //String allLinesContents = csvWriter.executeAllLines(lines);
             String allLinesContents = csvWriter.writeAllLines(lines, allLinesPath);
             System.out.println("Contents of all_lines.csv:");
             System.out.println(allLinesContents);
