@@ -1,6 +1,7 @@
 package ro.pao.application;
 
 import ro.pao.model.Course;
+import ro.pao.model.Professor;
 import ro.pao.model.Student;
 import ro.pao.model.enums.CourseType;
 import ro.pao.model.enums.DegreeType;
@@ -9,11 +10,16 @@ import ro.pao.model.enums.PersonType;
 import ro.pao.model.records.CourseData;
 import ro.pao.service.CourseService;
 import ro.pao.service.PersonService;
+import ro.pao.service.ProfessorService;
 import ro.pao.service.StudentService;
 import ro.pao.service.impl.CourseServiceImpl;
 import ro.pao.service.impl.PersonServiceImpl;
+import ro.pao.service.impl.ProfessorServiceImpl;
 import ro.pao.service.impl.StudentServiceImpl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -30,6 +36,7 @@ public class Menu {
     private static Scanner scanner = new Scanner(System.in);
     private static PersonService personService = new PersonServiceImpl();
     private static CourseService courseService = new CourseServiceImpl();
+    private static ProfessorService professorService = new ProfessorServiceImpl();
     private static StudentService studentService = new StudentServiceImpl();
     private Predicate<PersonService> canAccess = ps -> ps.getCurrentUserType().equals(personService.getRequiredUser());
 
@@ -97,19 +104,19 @@ public class Menu {
                                         ));
         List<Student> students = List.of(
                 Student.builder()
-                        .firstName("John")
+                        .firstName(List.of("John"))
                         .lastName("Doe")
                         .degree(DegreeType.BACHELOR)
                         .frequency(FrequencyType.ID)
                         .build(),
                 Student.builder()
-                        .firstName("Jane")
+                        .firstName(List.of("Jane"))
                         .lastName("Doe")
                         .degree(DegreeType.BACHELOR)
                         .frequency(FrequencyType.IF)
                         .build(),
                 Student.builder()
-                        .firstName("John")
+                        .firstName(List.of("John"))
                         .lastName("Smith")
                         .degree(DegreeType.MASTER)
                         .frequency(FrequencyType.ID)
@@ -138,6 +145,7 @@ public class Menu {
                 2. See students
                 3. See students by type of course they attend
                 4. Enroll student to course
+                5. Add teacher
                 
                 """;
 
@@ -152,9 +160,62 @@ public class Menu {
                 case "2" -> seeStudents();
                 case "3" -> seeStudentsByTypeOfCourse();
                 case "4" -> enrollStudentToCourse();
+                case "5" -> addProfessor();
                 default -> System.out.println("Invalid input. Try again.");
             }
 
+        }
+    }
+
+    private void addProfessor() {
+        personService.setRequiredUser(PersonType.SECRETARY);
+        if (canAccess.test(personService)) {
+            System.out.println("    Add professor");
+            System.out.println("First name: ");
+            String firstName = scanner.next();
+            while(Character.isLowerCase(firstName.charAt(0))) {
+                System.out.println("Invalid input. Try again.");
+                firstName = scanner.next();
+            }
+            List<String> listFirstName = Arrays.stream(firstName.split("-")).toList();
+            System.out.println("Last name: ");
+            String lastName = scanner.next();
+            while(Character.isLowerCase(lastName.charAt(0))) {
+                System.out.println("Invalid input. Try again.");
+                lastName = scanner.next();
+            }
+            System.out.println("Birth date(yyyy-MM-dd): ");
+            String birthDate = scanner.next();
+            System.out.println("Birth hour(HH:mm): ");
+            String birthHour = scanner.next();
+            String allBirthDate = birthDate + " " + birthHour;
+            boolean flag = false;
+            LocalDateTime dateTime = null;
+            while(!flag) {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    dateTime = LocalDateTime.parse(allBirthDate, formatter);
+                    flag = true;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid input. Try again.");
+                    birthDate = scanner.next();
+                }
+            }
+            System.out.println("Birth place: ");
+            String birthPlace = scanner.next();
+            System.out.println("Email: ");
+            String email = scanner.next();
+            Professor professor = Professor.builder()
+                    .firstName(listFirstName)
+                    .lastName(lastName)
+                    .birthDate(dateTime)
+                    .birthPlace(birthPlace)
+                    .email(email)
+                    .build();
+
+            professorService.addProfessor(professor);
+        } else {
+            System.out.println("You don't have access to this option.");
         }
     }
 
@@ -224,6 +285,7 @@ public class Menu {
                 System.out.println("Invalid input. Try again.");
                 firstName = scanner.next();
             }
+            List<String> listFirstName = Arrays.stream(firstName.split("-")).toList();
             System.out.println("Last name: ");
             String lastName = scanner.next();
             while(Character.isLowerCase(lastName.charAt(0))) {
@@ -243,7 +305,7 @@ public class Menu {
                 frequencyType = FrequencyType.getByType(scanner.next());
             }
             Student student = Student.builder()
-                                     .firstName(firstName)
+                                     .firstName(listFirstName)
                                      .lastName(lastName)
                                      .personType(PersonType.STUDENT)
                                      .degree(degreeType)

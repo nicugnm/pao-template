@@ -4,6 +4,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import ro.pao.model.enums.PersonType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @NoArgsConstructor
@@ -11,7 +14,8 @@ import ro.pao.model.enums.PersonType;
 @SuperBuilder
 @ToString
 public class Person extends AbstractEntity{
-    private String firstName;
+    @Builder.Default
+    private List<String> firstName = new ArrayList<>();
     private String lastName;
     private PersonType personType;
 }

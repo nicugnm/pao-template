@@ -25,11 +25,7 @@ V
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 `
 0src/main/java/ro/pao/model/enums/PersonType.java,e\2\e2b8a6ece9bc34a98edbc5a9fd08deabc268e93e
-`
-0src/main/java/ro/pao/model/abstracts/Person.java,1\d\1d33e6b9166e8b2f938d89dff645834f6a08d796
 b
 2src/main/java/ro/pao/model/records/CourseData.java,0\c\0c3dd6573bb4bab9fbc1748b4ca28bb14c98a189
 W
 'src/main/java/ro/pao/model/Student.java,b\e\beee7d486e1eb6e1e378f621bef6768e533c9e89
-Y
-)src/main/java/ro/pao/model/Professor.java,a\0\a0787b8e25f6c7286df27d0bde668a7a1d8c6d39
