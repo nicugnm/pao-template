@@ -137,6 +137,7 @@ public class Menu {
                 1. Add student
                 2. See students
                 3. See students by type of course they attend
+                4. Enroll student to course
                 
                 """;
 
@@ -150,9 +151,40 @@ public class Menu {
                 case "1" -> addStudent();
                 case "2" -> seeStudents();
                 case "3" -> seeStudentsByTypeOfCourse();
+                case "4" -> enrollStudentToCourse();
                 default -> System.out.println("Invalid input. Try again.");
             }
 
+        }
+    }
+
+    private void enrollStudentToCourse() {
+        personService.setRequiredUser(PersonType.SECRETARY);
+        if (canAccess.test(personService)) {
+            System.out.println("    Enroll student to course");
+            List<Student> students = studentService.getStudents();
+            System.out.println("        Choose student:");
+            for (int i = 0; i < students.size(); i++) {
+                System.out.println("            " + i + ". " + students.get(i).getFirstName() + " " + students.get(i).getLastName());
+            }
+            System.out.println("        Enter student index: ");
+            int studentIndex = scanner.nextInt();
+            Student student = students.get(studentIndex);
+            List<Course> courses = courseService.getCourses();
+            System.out.println("        Choose course:");
+            for (int i = 0; i < courses.size(); i++) {
+                System.out.println("            " + (i + 1) + ". " + courses.get(i).getName());
+            }
+            System.out.println("        Enter course index: ");
+            int courseIndex = scanner.nextInt();
+            Course course = courses.get(courseIndex);
+            try {
+                studentService.addCourseToStudent(student, course.getId());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("You don't have access to this option.");
         }
     }
 
@@ -188,8 +220,16 @@ public class Menu {
             System.out.println("    Add student:");
             System.out.println("First name: ");
             String firstName = scanner.next();
+            while(Character.isLowerCase(firstName.charAt(0))) {
+                System.out.println("Invalid input. Try again.");
+                firstName = scanner.next();
+            }
             System.out.println("Last name: ");
             String lastName = scanner.next();
+            while(Character.isLowerCase(lastName.charAt(0))) {
+                System.out.println("Invalid input. Try again.");
+                lastName = scanner.next();
+            }
             System.out.println("Degree(Bachelor/Master/PhD): ");
             DegreeType degreeType = DegreeType.getByType(scanner.next());
             while(degreeType == null) {

@@ -11,6 +11,12 @@ import java.util.UUID;
 
 public class CourseServiceImpl implements CourseService {
     private static List<Course> courseList = new ArrayList<>();
+
+    @Override
+    public List<Course> getCourses() {
+        return courseList;
+    }
+
     @Override
     public void addCourse(Course course) {
         courseList.add(course);

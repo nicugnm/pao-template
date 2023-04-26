@@ -27,8 +27,20 @@ public class StudentServiceImpl implements StudentService {
         studentList.addAll(student);
     }
 
+    private int getOptionalsForStudent(Student student) {
+        return (int) student.getCourses().stream().filter(c -> courseService.getCourseById(c).get().equals(CourseType.OPTIONAL)).count();
+    }
+
+    private int getFacultativesForStudent(Student student) {
+        return (int) student.getCourses().stream().filter(c -> courseService.getCourseById(c).get().equals(CourseType.FACULTATIVE)).count();
+    }
+
     @Override
-    public void addCourseToStudent(Student student, UUID courseId) {
+    public void addCourseToStudent(Student student, UUID courseId) throws IllegalArgumentException {
+        if (courseService.getCourseById(courseId).equals(CourseType.OPTIONAL) && getOptionalsForStudent(student) >= 2)
+            throw new IllegalArgumentException("Student already has 2 optional courses");
+        if (courseService.getCourseById(courseId).equals(CourseType.FACULTATIVE) && getFacultativesForStudent(student) >= 2)
+            throw new IllegalArgumentException("Student already has 1 facultative course");
         student.getCourses().add(courseId);
     }
 
@@ -42,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
         Predicate<Student> hasMandatoryCourse = s -> s.getCourses().stream().anyMatch(c -> courseService.getCourseById(c).get().equals(CourseType.MANDATORY));
         Predicate<Student> hasFacultativeCourse = s -> s.getCourses().stream().anyMatch(c -> courseService.getCourseById(c).get().equals(CourseType.FACULTATIVE));
         Predicate<Student> hasOptionalCourse = s -> s.getCourses().stream().anyMatch(c -> courseService.getCourseById(c).get().equals(CourseType.OPTIONAL));
-        CourseData courseData = studentList.stream()
+        return studentList.stream()
                 .collect(MyCollectorsClass.teeing(
                         Collectors.filtering(hasMandatoryCourse, Collectors.toList()),
                         Collectors.filtering(hasFacultativeCourse, Collectors.toList()),
@@ -50,6 +62,5 @@ public class StudentServiceImpl implements StudentService {
                         CourseData::new
                                                  )
                         );
-        return courseData;
     }
 }

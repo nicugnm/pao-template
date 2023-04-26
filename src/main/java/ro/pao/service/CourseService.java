@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CourseService {
+    List<Course> getCourses();
     void addCourse(Course course);
     void addCourses(List<Course> courses);
     Optional<Course> getCourseByName(String name);
