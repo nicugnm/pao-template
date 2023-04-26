@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@ToString
+@ToString(callSuper = false)
 public class Person extends AbstractEntity{
     @Builder.Default
     private List<String> firstName = new ArrayList<>();

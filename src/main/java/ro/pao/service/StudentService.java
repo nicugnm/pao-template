@@ -12,5 +12,6 @@ public interface StudentService {
     void addStudents(List<Student> student);
     void addCourseToStudent(Student student, UUID courseId);
     List<Student> getStudents();
+    String getReversedFirstname(UUID studentId);
     CourseData getCourseData();
 }

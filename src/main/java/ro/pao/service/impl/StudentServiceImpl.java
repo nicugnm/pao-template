@@ -50,6 +50,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public String getReversedFirstname(UUID studentId) {
+        StringBuilder reversed = new StringBuilder();
+        Student student = studentList.stream().filter(s -> s.getId().equals(studentId)).findFirst().get();
+        reversed.append(String.join(" ", student.getFirstName()));
+        reversed.reverse();
+        return reversed.toString();
+    }
+
+    @Override
     public CourseData getCourseData() {
         Predicate<Student> hasMandatoryCourse = s -> s.getCourses().stream().anyMatch(c -> courseService.getCourseById(c).get().equals(CourseType.MANDATORY));
         Predicate<Student> hasFacultativeCourse = s -> s.getCourses().stream().anyMatch(c -> courseService.getCourseById(c).get().equals(CourseType.FACULTATIVE));
