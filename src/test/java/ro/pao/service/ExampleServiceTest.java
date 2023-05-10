@@ -1,22 +1,11 @@
 package ro.pao.service;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import ro.pao.application.Menu;
 import ro.pao.model.ExampleClass;
-import ro.pao.model.enums.EnumExample;
 import ro.pao.repository.ExampleRepository;
 import ro.pao.repository.impl.ExampleRepositoryImpl;
 import ro.pao.service.impl.ExampleServiceImpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,7 +35,7 @@ class ExampleServiceTest {
      * 'when{Descriere}_then{Descriere}
      */
     @Test
-    void whenGivenExampleClass_thenElementIsAdd() throws SQLException {
+    void whenGivenExampleClass_thenElementIsAdd() {
         // given
         // pasul in care efectuam operatiile
 

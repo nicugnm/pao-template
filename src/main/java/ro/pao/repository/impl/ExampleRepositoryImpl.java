@@ -21,8 +21,8 @@ public class ExampleRepositoryImpl implements ExampleRepository {
     public Optional<ExampleClass> getObjectById(UUID id) {
         String selectSql = "SELECT * FROM example_table WHERE id=?";
 
-        Connection connection = DatabaseConfiguration.getDatabaseConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(selectSql)) {
+        try (Connection connection = DatabaseConfiguration.getDatabaseConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(selectSql)) {
             preparedStatement.setString(1, id.toString());
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -38,8 +38,8 @@ public class ExampleRepositoryImpl implements ExampleRepository {
     public void deleteObjectById(UUID id) {
         String updateNameSql = "DELETE FROM example_table WHERE id=?";
 
-        Connection connection = DatabaseConfiguration.getDatabaseConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(updateNameSql)) {
+        try (Connection connection = DatabaseConfiguration.getDatabaseConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(updateNameSql)) {
             preparedStatement.setString(1, id.toString());
 
             preparedStatement.executeUpdate();
@@ -52,8 +52,8 @@ public class ExampleRepositoryImpl implements ExampleRepository {
     public void updateObjectById(UUID id, ExampleClass newObject) {
         String updateNameSql = "UPDATE example_table SET name=? WHERE id=?";
 
-        Connection connection = DatabaseConfiguration.getDatabaseConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(updateNameSql)) {
+        try (Connection connection = DatabaseConfiguration.getDatabaseConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(updateNameSql)) {
             preparedStatement.setString(1, newObject.getExampleStringField());
             preparedStatement.setString(2, id.toString());
 
@@ -67,8 +67,8 @@ public class ExampleRepositoryImpl implements ExampleRepository {
     public void addNewObject(ExampleClass exampleClass) {
         String insertSql = "INSERT INTO example_table (id, name) VALUES (?, ?)";
 
-        Connection connection = DatabaseConfiguration.getDatabaseConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertSql)) {
+        try (Connection connection = DatabaseConfiguration.getDatabaseConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(insertSql)) {
             preparedStatement.setString(1, exampleClass.getId().toString());
             preparedStatement.setString(2, exampleClass.getExampleStringField());
 
@@ -82,8 +82,8 @@ public class ExampleRepositoryImpl implements ExampleRepository {
     public List<ExampleClass> getAll() {
         String selectSql = "SELECT * FROM example_table";
 
-        Connection connection = DatabaseConfiguration.getDatabaseConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(selectSql)) {
+        try (Connection connection = DatabaseConfiguration.getDatabaseConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(selectSql)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             return exampleClassMapper.mapToExampleClassList(resultSet);
