@@ -1,6 +1,7 @@
 package ro.pao.application.csv;
 
 import com.opencsv.CSVReader;
+import ro.pao.exceptions.CustomFileNotFoundException;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -28,6 +29,10 @@ public class CsvReader {
     }
 
     public List<String[]> readAllLines(Path filePath) throws Exception {
+        if (!filePath.toFile().exists()) {
+            throw new CustomFileNotFoundException("File not found!");
+        }
+
         try (Reader reader = Files.newBufferedReader(filePath)) {
             try (CSVReader csvReader = new CSVReader(reader)) {
                 return csvReader.readAll();
