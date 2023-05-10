@@ -26,6 +26,8 @@ public interface ExampleService {
 
     List<ExampleClass> getAllFromList();
 
+    List<ExampleClass> getAllWithCondition();
+
     void addAllFromGivenList(List<ExampleClass> exampleClassList);
 
     void addOnlyOne(ExampleClass exampleClass);

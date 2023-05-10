@@ -1,6 +1,7 @@
 package ro.pao.application;
 
 import ro.pao.model.ExampleClass;
+import ro.pao.repository.impl.ExampleRepositoryImpl;
 import ro.pao.service.ExampleService;
 import ro.pao.service.impl.ExampleServiceImpl;
 
@@ -18,7 +19,7 @@ public class Menu {
 
     private static Menu INSTANCE;
 
-    private final ExampleService exampleService = new ExampleServiceImpl();
+    private final ExampleService exampleService = new ExampleServiceImpl(new ExampleRepositoryImpl());
 
     public static Menu getInstance() {
         return (INSTANCE == null ? new Menu() : INSTANCE);
