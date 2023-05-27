@@ -22,7 +22,11 @@ public class Menu {
     private final ExampleService exampleService = new ExampleServiceImpl(new ExampleRepositoryImpl());
 
     public static Menu getInstance() {
-        return (INSTANCE == null ? new Menu() : INSTANCE);
+        if (INSTANCE == null) {
+            INSTANCE = new Menu();
+        }
+
+        return INSTANCE;
     }
 
     public void intro() {
